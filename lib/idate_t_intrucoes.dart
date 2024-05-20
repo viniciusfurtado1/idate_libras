@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:idate_libras/home_page.dart';
-import 'package:idate_libras/idate_e.dart';
-import 'package:idate_libras/idate_t.dart';
-import 'package:idate_libras/idate_t_e.dart';
+import 'package:idate_libras/question_page_idate_t.dart';
 
-class IdateInstrucoes extends StatefulWidget {
-  IdateInstrucoes({super.key});
+class IdateTInstrucoes extends StatefulWidget {
+  IdateTInstrucoes({super.key});
 
   @override
-  State<IdateInstrucoes> createState() => _IdateInstrucoesState();
+  State<IdateTInstrucoes> createState() => _IdateTInstrucoesState();
 }
 
-class _IdateInstrucoesState extends State<IdateInstrucoes> {
+class _IdateTInstrucoesState extends State<IdateTInstrucoes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +28,7 @@ class _IdateInstrucoesState extends State<IdateInstrucoes> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text("INSTRUÇÕES INICIAIS", style: TextStyle(fontSize: 20),),
+              const Text("INSTRUÇÕES IDATE-T", style: TextStyle(fontSize: 20),),
 
               Image.asset('assets/images/video.png'),
 
@@ -42,7 +39,7 @@ class _IdateInstrucoesState extends State<IdateInstrucoes> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => MyHomePage()));
+                .push(MaterialPageRoute(builder: (context) => QuestionPageIdateT()));
         },
         shape: CircleBorder(),
         child: const Icon(Icons.arrow_forward),

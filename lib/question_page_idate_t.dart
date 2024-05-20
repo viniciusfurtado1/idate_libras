@@ -12,9 +12,15 @@ class _QuestionPageIdateT extends State<QuestionPageIdateT> {
   List<int?> _selectedAnswers = [];
 
   final List<Question> _questions = [
-    Question(questionText: '1. SENTIR BEM', options: ['Quase \nNunca', 'Às vezes\n', 'Frequentemente\n', ' Quase \nSempre']),
-    Question(questionText: '2. CANSAR RÁPIDO', options: ['Quase \nNunca', 'Às vezes\n', 'Frequentemente\n', ' Quase \nSempre']),
-    Question(questionText: '3. SENTIR VONTADE CHORAR', options: ['Quase \nNunca', 'Às vezes\n', 'Frequentemente\n', ' Quase \nSempre']),
+    Question( questionText: '1. SENTIR BEM', 
+              videoAsset: 'assets/images/video.png', 
+              options: ['Quase \nNunca', 'Às vezes\n', 'Frequentemente\n', ' Quase \nSempre']),
+    Question( questionText: '2. CANSAR RÁPIDO', 
+              videoAsset: 'assets/images/video.png', 
+              options: ['Quase \nNunca', 'Às vezes\n', 'Frequentemente\n', ' Quase \nSempre']),
+    Question( questionText: '3. SENTIR VONTADE CHORAR', 
+              videoAsset: 'assets/images/video.png', 
+              options: ['Quase \nNunca', 'Às vezes\n', 'Frequentemente\n', ' Quase \nSempre']),
   ];
 
   @override
@@ -81,6 +87,9 @@ class _QuestionPageIdateT extends State<QuestionPageIdateT> {
                   _questions[index].questionText,
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
+
+                SizedBox(height: 24),
+                Image.asset(_questions[index].videoAsset),
                 SizedBox(height: 24),
 
                  Wrap(

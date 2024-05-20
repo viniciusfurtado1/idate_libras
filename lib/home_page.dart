@@ -3,6 +3,7 @@ import 'package:idate_libras/idate_e.dart';
 import 'package:idate_libras/idate_instrucoes.dart';
 import 'package:idate_libras/idate_t.dart';
 import 'package:idate_libras/idate_t_e.dart';
+import 'package:idate_libras/idate_t_intrucoes.dart';
 import 'package:idate_libras/question_page_idate_t.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -61,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () {
             if (_character == SingingCharacter.idatet) {
             Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => QuestionPageIdateT()));
+                .push(MaterialPageRoute(builder: (context) => IdateTInstrucoes()));
           } else if (_character == SingingCharacter.idatee) {
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (context) => IdateE()));
