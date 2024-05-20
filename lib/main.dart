@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:idate_libras/home_page.dart';
+import 'package:idate_libras/idate_instrucoes.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,8 +16,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        textTheme: GoogleFonts.robotoTextTheme(
+          Theme.of(context).textTheme,
+        ),
       ),
-      home: MyHomePage()
+      home: IdateInstrucoes()
     );
   }
 }

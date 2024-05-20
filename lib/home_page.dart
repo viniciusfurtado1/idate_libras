@@ -3,6 +3,7 @@ import 'package:idate_libras/idate_e.dart';
 import 'package:idate_libras/idate_instrucoes.dart';
 import 'package:idate_libras/idate_t.dart';
 import 'package:idate_libras/idate_t_e.dart';
+import 'package:idate_libras/question_page_idate_t.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -18,8 +19,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text("IDATE LIBRAS"),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        title: Text("IDATE/LIBRAS"),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -58,19 +59,20 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          if (_character == SingingCharacter.idatet) {
+            if (_character == SingingCharacter.idatet) {
             Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => IdateInstrucoes(telaAnterior: "idatet")));
+                .push(MaterialPageRoute(builder: (context) => QuestionPageIdateT()));
           } else if (_character == SingingCharacter.idatee) {
             Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => IdateInstrucoes(telaAnterior: "idatee")));
+                .push(MaterialPageRoute(builder: (context) => IdateE()));
           } else if (_character == SingingCharacter.idatete) {
             Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => IdateInstrucoes(telaAnterior: "idatetee")));
+                .push(MaterialPageRoute(builder: (context) => IdateTeE()));
           }
         },
         shape: CircleBorder(),
         child: const Icon(Icons.arrow_forward),
+        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
     );
   }

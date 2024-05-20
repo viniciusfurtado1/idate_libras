@@ -15,7 +15,7 @@ class QuestaoTile extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.inversePrimary,
+          //color: Theme.of(context).colorScheme.inversePrimary,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(

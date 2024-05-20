@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:idate_libras/home_page.dart';
 import 'package:idate_libras/idate_e.dart';
 import 'package:idate_libras/idate_t.dart';
 import 'package:idate_libras/idate_t_e.dart';
 
 class IdateInstrucoes extends StatefulWidget {
-  String telaAnterior;
-  IdateInstrucoes({super.key, required this.telaAnterior});
+  IdateInstrucoes({super.key});
 
   @override
   State<IdateInstrucoes> createState() => _IdateInstrucoesState();
@@ -16,8 +16,8 @@ class _IdateInstrucoesState extends State<IdateInstrucoes> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text("IDATE LIBRAS"),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        title: Text("IDATE/LIBRAS"),
       ),
       body: Padding(
         padding:
@@ -25,14 +25,14 @@ class _IdateInstrucoesState extends State<IdateInstrucoes> {
         child: Container(
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.inversePrimary,
+            //color: Theme.of(context).colorScheme.inversePrimary,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Instruções",
+                "INSTRUÇÕES",
                 style: TextStyle(fontSize: 20),
               ),
               Image.asset('assets/images/video.png'),
@@ -41,18 +41,13 @@ class _IdateInstrucoesState extends State<IdateInstrucoes> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {if (widget.telaAnterior == "idatet") {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => IdateT()));
-          } else if (widget.telaAnterior == "idatee") {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => IdateE()));
-          } else if (widget.telaAnterior == "idatetee") {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => IdateTeE()));
-          }},
+        onPressed: () {
+          Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => MyHomePage()));
+        },
         shape: CircleBorder(),
         child: const Icon(Icons.arrow_forward),
+        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
     );
   }

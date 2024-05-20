@@ -11,32 +11,45 @@ class IdateT extends StatefulWidget {
 class _IdateTState extends State<IdateT> {
   Map<int, SingingCharacter?> _selectedValues = {};
 
-  final List<String> questoes = [
+  final List<String> _questions = [
     "1. Sentir bem",
     "2. Cansar rápido",
-    "3. Sentir vontade chorar",
-    "4. Querer ser feliz igual pessoas vejo",
-    "5. Perder oportunidade porque eu não conseguir decidir rápido"
   ];
+
+  final PageController _pageController = PageController();
+  int _currentPage = 0;
+  List<int?> _selectedAnswers = [];
+
+  void _nextPage() {
+    if (_currentPage < _questions.length - 1) {
+      setState(() {
+        _currentPage++;
+      });
+      _pageController.nextPage(
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeIn,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    bool allQuestionsAnswered = _selectedValues.length == questoes.length &&
+    bool allQuestionsAnswered = _selectedValues.length == _questions.length &&
         _selectedValues.values.every((value) => value != null);
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text("IDATE-T"),
       ),
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
-              itemCount: questoes.length,
+            child: PageView.builder(
+              itemCount: _questions.length,
               itemBuilder: (context, index) {
                 return QuestaoTile(
-                  questao: questoes[index],
+                  questao: _questions[index],
                   selectedValue: _selectedValues[index],
                   onChanged: (value) {
                     setState(() {
@@ -68,6 +81,13 @@ class _IdateTState extends State<IdateT> {
             ),
         ],
       ),
+      floatingActionButton:FloatingActionButton(
+        shape: CircleBorder(),
+        onPressed: _nextPage,
+        child: Icon(Icons.arrow_forward),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+      )
     );
   }
 }
+
