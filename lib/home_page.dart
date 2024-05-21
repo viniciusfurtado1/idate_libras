@@ -21,6 +21,16 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => IdateInstrucoes()),
+              (Route<dynamic> route) => false,
+            );
+          },
+        ),
         title: Text("IDATE/LIBRAS"),
       ),
       body: Column(
