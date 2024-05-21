@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:idate_libras/form_summary_page.dart';
+import 'package:idate_libras/idate_t/form_summary_idate_t.dart';
 import 'package:idate_libras/question.dart';
 
 class QuestionPageIdateT extends StatefulWidget {
@@ -70,7 +70,7 @@ class _QuestionPageIdateT extends State<QuestionPageIdateT> {
     Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => FormSummaryPage(
+          builder: (context) => FormSummaryIdateT (
               questions: _questions, selectedAnswers: _selectedAnswers,  score: score,)),
     );
   }

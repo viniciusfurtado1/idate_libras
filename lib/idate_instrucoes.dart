@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:idate_libras/home_page.dart';
-import 'package:idate_libras/idate_e.dart';
-import 'package:idate_libras/idate_t.dart';
-import 'package:idate_libras/idate_t_e.dart';
+import 'package:idate_libras/idate_e/idate_e.dart';
+import 'package:idate_libras/idate_t_e/idate_t_e.dart';
 
 class IdateInstrucoes extends StatefulWidget {
   IdateInstrucoes({super.key});

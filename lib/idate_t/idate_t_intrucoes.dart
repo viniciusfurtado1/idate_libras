@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:idate_libras/question_page_idate_t.dart';
+import 'package:idate_libras/idate_t/question_page_idate_t.dart';
 
 class IdateTInstrucoes extends StatefulWidget {
   IdateTInstrucoes({super.key});

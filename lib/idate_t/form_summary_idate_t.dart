@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:idate_libras/home_page.dart';
 import 'package:idate_libras/question.dart';
 
-class FormSummaryPage extends StatelessWidget {
+class FormSummaryIdateT extends StatelessWidget {
   final List<Question> questions;
   final List<int?> selectedAnswers;
   final int score;
 
-  const FormSummaryPage(
+  const FormSummaryIdateT (
       {Key? key, required this.questions, required this.selectedAnswers, required this.score,})
       : super(key: key);
 

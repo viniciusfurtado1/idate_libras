@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:idate_libras/idate_e.dart';
+import 'package:idate_libras/idate_e/idate_e.dart';
 import 'package:idate_libras/idate_instrucoes.dart';
-import 'package:idate_libras/idate_t.dart';
-import 'package:idate_libras/idate_t_e.dart';
-import 'package:idate_libras/idate_t_intrucoes.dart';
-import 'package:idate_libras/question_page_idate_t.dart';
+import 'package:idate_libras/idate_t_e/idate_t_e.dart';
+import 'package:idate_libras/idate_t/idate_t_intrucoes.dart';
+import 'package:idate_libras/idate_t/question_page_idate_t.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
