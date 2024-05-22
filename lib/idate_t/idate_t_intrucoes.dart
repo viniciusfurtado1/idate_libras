@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:idate_libras/idate_t/question_page_idate_t.dart';
 
 class IdateTInstrucoes extends StatefulWidget {
-  IdateTInstrucoes({super.key});
+  const IdateTInstrucoes({super.key});
 
   @override
   State<IdateTInstrucoes> createState() => _IdateTInstrucoesState();
@@ -14,13 +14,13 @@ class _IdateTInstrucoesState extends State<IdateTInstrucoes> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
-        title: Text("IDATE/LIBRAS"),
+        title: const Text("IDATE/LIBRAS"),
       ),
       body: Padding(
         padding:
             const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 400),
         child: Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             //color: Theme.of(context).colorScheme.inversePrimary,
             borderRadius: BorderRadius.circular(12),
@@ -28,7 +28,7 @@ class _IdateTInstrucoesState extends State<IdateTInstrucoes> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text("INSTRUÇÕES IDATE-T", style: TextStyle(fontSize: 20),),
+              const Text("INSTRUÇÕES IDATE-T", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
 
               Image.asset('assets/images/video.png'),
 
@@ -39,11 +39,11 @@ class _IdateTInstrucoesState extends State<IdateTInstrucoes> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => QuestionPageIdateT()));
+                .push(MaterialPageRoute(builder: (context) => const QuestionPageIdateT()));
         },
-        shape: CircleBorder(),
+        shape: const CircleBorder(),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         child: const Icon(Icons.arrow_forward),
-        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
     );
   }

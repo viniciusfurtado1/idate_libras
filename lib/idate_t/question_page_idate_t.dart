@@ -3,7 +3,10 @@ import 'package:idate_libras/idate_t/form_summary_idate_t.dart';
 import 'package:idate_libras/question.dart';
 
 class QuestionPageIdateT extends StatefulWidget {
+  const QuestionPageIdateT({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _QuestionPageIdateT createState() => _QuestionPageIdateT();
 }
 
@@ -12,22 +15,31 @@ class _QuestionPageIdateT extends State<QuestionPageIdateT> {
   int _currentPage = 0;
   List<int?> _selectedAnswers = [];
 
+  static const options = [
+    'QUASE NUNCA',
+    'ÀS VEZES',
+    'FREQUENTEMENTE',
+    ' QUASE SEMPRE'
+  ];
+  static const weights = [1, 2, 3, 4];
+  static const reverseWeights = [4, 3, 2, 1];
+
   final List<Question> _questions = [
     Question(
         questionText: '1. SENTIR BEM',
         videoAsset: 'assets/images/video.png',
-        options: ['QUASE NUNCA', 'ÀS VEZES', 'FREQUENTEMENTE', ' QUASE SEMPRE'],
-        weights: [4, 3, 2, 1]),
+        options: options,
+        weights: reverseWeights),
     Question(
         questionText: '2. CANSAR RÁPIDO',
         videoAsset: 'assets/images/video.png',
-        options: ['QUASE NUNCA', 'ÀS VEZES', 'FREQUENTEMENTE', ' QUASE SEMPRE'],
-        weights: [1, 2, 3, 4]),
+        options: options,
+        weights: weights),
     Question(
         questionText: '3. SENTIR VONTADE CHORAR',
         videoAsset: 'assets/images/video.png',
-        options: ['QUASE NUNCA', 'ÀS VEZES', 'FREQUENTEMENTE', ' QUASE SEMPRE'],
-        weights: [1, 2, 3, 4]),
+        options: options,
+        weights: weights),
   ];
 
   @override
@@ -42,19 +54,7 @@ class _QuestionPageIdateT extends State<QuestionPageIdateT> {
         _currentPage++;
       });
       _pageController.nextPage(
-        duration: Duration(milliseconds: 300),
-        curve: Curves.easeIn,
-      );
-    }
-  }
-
-  void _previousPage() {
-    if (_currentPage > 0) {
-      setState(() {
-        _currentPage--;
-      });
-      _pageController.previousPage(
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         curve: Curves.easeIn,
       );
     }
@@ -70,8 +70,11 @@ class _QuestionPageIdateT extends State<QuestionPageIdateT> {
     Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => FormSummaryIdateT (
-              questions: _questions, selectedAnswers: _selectedAnswers,  score: score,)),
+          builder: (context) => FormSummaryIdateT(
+                questions: _questions,
+                selectedAnswers: _selectedAnswers,
+                score: score,
+              )),
     );
   }
 
@@ -94,12 +97,12 @@ class _QuestionPageIdateT extends State<QuestionPageIdateT> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('IDATE-T/LIBRAS'),
+        title: const Text('IDATE-T/LIBRAS'),
         //${_currentPage + 1} de ${_questions.length}'
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: PageView.builder(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         controller: _pageController,
         itemCount: _questions.length,
         itemBuilder: (context, index) {
@@ -108,15 +111,16 @@ class _QuestionPageIdateT extends State<QuestionPageIdateT> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 96), // ajustar a altura aqui
+                const SizedBox(height: 96), // ajustar a altura aqui
                 Text(
                   _questions[index].questionText,
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 24, fontWeight: FontWeight.bold),
                 ),
 
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
                 Image.asset(_questions[index].videoAsset),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
 
                 Wrap(
                   spacing: 1,
@@ -126,11 +130,27 @@ class _QuestionPageIdateT extends State<QuestionPageIdateT> {
                     return Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(_questions[index].options[i],
-                            style: TextStyle(
-                                fontSize: 12, fontWeight: FontWeight.bold)),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.primary,
+                            border: Border.all(
+                              color: Colors.white,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                          child: Text(
+                              '${i + 1} \n ${_questions[index].options[i]}',
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontSize: 11.6,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              )),
+                        ),
                         Transform.scale(
                           scale: 1.5, // Aumenta o tamanho do círculo do Radio
+                          
                           child: Radio<int>(
                             value: i,
                             groupValue: _selectedAnswers[index],
@@ -157,19 +177,19 @@ class _QuestionPageIdateT extends State<QuestionPageIdateT> {
       floatingActionButton: _isLastQuestion()
           ? FloatingActionButton(
               onPressed: _isNextButtonEnabled() ? _goToSummary : null,
-              shape: CircleBorder(),
-              child: Icon(Icons.check),
+              shape: const CircleBorder(),
               backgroundColor: _isNextButtonEnabled()
-                  ? Colors.green
-                  : Colors.green.withOpacity(0.5),
+                  ? Theme.of(context).colorScheme.inversePrimary
+                  : Theme.of(context).colorScheme.primary,
+              child: const Icon(Icons.check),
             )
           : FloatingActionButton(
               onPressed: _isNextButtonEnabled() ? _nextPage : null,
-              shape: CircleBorder(),
-              child: Icon(Icons.arrow_forward),
+              shape: const CircleBorder(),
               backgroundColor: _isNextButtonEnabled()
-                  ? Theme.of(context).colorScheme.primary
-                  : Theme.of(context).colorScheme.inversePrimary,
+                  ? Theme.of(context).colorScheme.inversePrimary
+                  : Theme.of(context).colorScheme.primary,
+              child: const Icon(Icons.arrow_forward),
             ),
     );
   }

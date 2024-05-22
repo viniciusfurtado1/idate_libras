@@ -7,48 +7,51 @@ class FormSummaryIdateT extends StatelessWidget {
   final List<int?> selectedAnswers;
   final int score;
 
-  const FormSummaryIdateT (
-      {Key? key, required this.questions, required this.selectedAnswers, required this.score,})
-      : super(key: key);
+  const FormSummaryIdateT(
+      {super.key,
+      required this.questions,
+      required this.selectedAnswers,
+      required this.score});
 
   @override
   Widget build(BuildContext context) {
     // Aqui você pode criar a tela de resumo do formulário
     return Scaffold(
       appBar: AppBar(
-        title: Text('IDATE-T/LIBRAS'),
+        title: const Text('IDATE-T/LIBRAS'),
         //${_currentPage + 1} de ${_questions.length}'
         backgroundColor: Theme.of(context).colorScheme.primary,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => MyHomePage()),
+              MaterialPageRoute(builder: (context) => const MyHomePage()),
             );
           },
         ),
       ),
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-         Padding(
-          padding: EdgeInsets.all(16.0),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'RESULTADOS',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     'IDATE-T',
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     'SCORE: $score',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -67,10 +70,10 @@ class FormSummaryIdateT extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 10),
+                        const SizedBox(height: 5),
                         Text(
                           question.questionText,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         Row(
@@ -79,10 +82,22 @@ class FormSummaryIdateT extends StatelessWidget {
                               question.options.length, (i) {
                             return Column(
                               children: [
-                                Text(question.options[i],
-                                    style: TextStyle(
+                                Container(
+                                  decoration: BoxDecoration(
+                                    //color: Theme.of(context).colorScheme.primary,
+                                    border: Border.all(
+                                      color: Colors.grey,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(5.0),
+                                  ),
+                                  child: Text(question.options[i],
+                                      style: const TextStyle(
                                         fontSize: 12,
-                                        fontWeight: FontWeight.bold)),
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      )),
+                                ),
                                 Transform.scale(
                                   scale:
                                       1.5, // Aumenta o tamanho do círculo do Radio
@@ -90,6 +105,8 @@ class FormSummaryIdateT extends StatelessWidget {
                                     value: i,
                                     groupValue: selectedAnswer,
                                     onChanged: null, // Desabilitado
+                                    
+                                    
                                   ),
                                 ),
                               ],
