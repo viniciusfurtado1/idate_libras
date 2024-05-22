@@ -105,8 +105,6 @@ class FormSummaryIdateT extends StatelessWidget {
                                     value: i,
                                     groupValue: selectedAnswer,
                                     onChanged: null, // Desabilitado
-                                    
-                                    
                                   ),
                                 ),
                               ],

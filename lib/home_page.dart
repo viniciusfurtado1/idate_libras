@@ -30,6 +30,15 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         ),
         title: const Text("IDATE/LIBRAS"),
+        actions: [
+          IconButton( // Adiciona um IconButton à AppBar
+            color: Colors.white,
+            icon: const Icon(Icons.article), // Ícone para o botão
+            onPressed: () {
+               
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -124,6 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         child: const Icon(Icons.arrow_forward),
       ),
+      
     );
   }
 }
