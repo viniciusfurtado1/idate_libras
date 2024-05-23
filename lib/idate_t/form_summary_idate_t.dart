@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:idate_libras/home_page.dart';
 import 'package:idate_libras/question.dart';
 
 class FormSummaryIdateT extends StatelessWidget {
@@ -21,15 +20,6 @@ class FormSummaryIdateT extends StatelessWidget {
         title: const Text('IDATE-T/LIBRAS'),
         //${_currentPage + 1} de ${_questions.length}'
         backgroundColor: Theme.of(context).colorScheme.primary,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const MyHomePage()),
-            );
-          },
-        ),
       ),
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Padding(

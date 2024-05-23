@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:idate_libras/home_page.dart';
 import 'package:idate_libras/idate_t/form_summary_idate_t.dart';
 import 'package:idate_libras/question.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class QuestionPageIdateT extends StatefulWidget {
   const QuestionPageIdateT({super.key});
@@ -19,7 +23,7 @@ class _QuestionPageIdateT extends State<QuestionPageIdateT> {
     'QUASE NUNCA',
     'ÀS VEZES',
     'FREQUENTEMENTE',
-    ' QUASE SEMPRE'
+    'QUASE SEMPRE'
   ];
   static const weights = [1, 2, 3, 4];
   static const reverseWeights = [4, 3, 2, 1];
@@ -60,22 +64,51 @@ class _QuestionPageIdateT extends State<QuestionPageIdateT> {
     }
   }
 
-  void _goToSummary() {
-    int score = 0;
-    for (int i = 0; i < _questions.length; i++) {
-      if (_selectedAnswers[i] != null) {
-        score += _questions[i].weights[_selectedAnswers[i]!];
-      }
-    }
+  void _goToHomePage() async {
+    await _saveResult();
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const MyHomePage()),
+    );
+  }
+
+  Future<void> _saveResult() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String>? savedResults = prefs.getStringList('idate_results');
+    savedResults ??= [];
+
+    final result = {
+      'date': DateTime.now().toIso8601String(),
+      'questions': _questions.map((q) => q.toJson()).toList(),
+      'selectedAnswers': _selectedAnswers,
+      'score': _calcScore(),
+    };
+
+    savedResults.add(jsonEncode(result));
+    await prefs.setStringList('idate_results', savedResults);
+  }
+
+  /*void _goToSummary() async {
+    await _saveResult();
     Navigator.push(
       context,
       MaterialPageRoute(
           builder: (context) => FormSummaryIdateT(
                 questions: _questions,
                 selectedAnswers: _selectedAnswers,
-                score: score,
+                score: _calcScore(),
               )),
     );
+  }*/
+
+  int _calcScore() {
+    int score = 0;
+    for (int i = 0; i < _questions.length; i++) {
+      if (_selectedAnswers[i] != null) {
+        score += _questions[i].weights[_selectedAnswers[i]!];
+      }
+    }
+    return score;
   }
 
   void _onOptionSelected(int questionIndex, int? selectedIndex) {
@@ -150,7 +183,7 @@ class _QuestionPageIdateT extends State<QuestionPageIdateT> {
                         ),
                         Transform.scale(
                           scale: 1.5, // Aumenta o tamanho do círculo do Radio
-                          
+
                           child: Radio<int>(
                             value: i,
                             groupValue: _selectedAnswers[index],
@@ -176,11 +209,10 @@ class _QuestionPageIdateT extends State<QuestionPageIdateT> {
       ),
       floatingActionButton: _isLastQuestion()
           ? FloatingActionButton(
-              onPressed: _isNextButtonEnabled() ? _goToSummary : null,
+              onPressed: _isNextButtonEnabled() ? _goToHomePage : null,
               shape: const CircleBorder(),
-              backgroundColor: _isNextButtonEnabled()
-                  ? Theme.of(context).colorScheme.inversePrimary
-                  : Theme.of(context).colorScheme.primary,
+              backgroundColor:
+                  _isNextButtonEnabled() ? Colors.green : Colors.green.shade300,
               child: const Icon(Icons.check),
             )
           : FloatingActionButton(

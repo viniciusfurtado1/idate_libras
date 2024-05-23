@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:idate_libras/idate_e/idate_e.dart';
 import 'package:idate_libras/idate_instrucoes.dart';
-import 'package:idate_libras/idate_t_e/idate_t_e.dart';
 import 'package:idate_libras/idate_t/idate_t_intrucoes.dart';
+import 'package:idate_libras/result_page.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -31,11 +31,14 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         title: const Text("IDATE/LIBRAS"),
         actions: [
-          IconButton( // Adiciona um IconButton à AppBar
+          IconButton(
             color: Colors.white,
             icon: const Icon(Icons.article), // Ícone para o botão
             onPressed: () {
-               
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ResultsPage()),
+              );
             },
           ),
         ],
@@ -92,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             ),
-            Row(
+            /*Row(
               children: [
                 Transform.scale(
                   scale: 1.5,
@@ -112,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ],
-            ),
+            ),*/
           ],
         ),
       ),
@@ -120,20 +123,20 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () {
           if (_character == SingingCharacter.idatet) {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const IdateTInstrucoes()));
+                builder: (context) =>
+                    const IdateTInstrucoes())); // colocar as intruçoes de volta depois
           } else if (_character == SingingCharacter.idatee) {
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (context) => IdateE()));
-          } else if (_character == SingingCharacter.idatete) {
+          } /*else if (_character == SingingCharacter.idatete) {
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (context) => IdateTeE()));
-          }
+          }*/
         },
         shape: const CircleBorder(),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         child: const Icon(Icons.arrow_forward),
       ),
-      
     );
   }
 }
