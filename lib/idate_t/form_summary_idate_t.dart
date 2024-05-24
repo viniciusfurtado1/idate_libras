@@ -57,51 +57,53 @@ class FormSummaryIdateT extends StatelessWidget {
 
                   return Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 5),
-                        Text(
-                          question.questionText,
-                          style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: List<Widget>.generate(
-                              question.options.length, (i) {
-                            return Column(
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                    //color: Theme.of(context).colorScheme.primary,
-                                    border: Border.all(
-                                      color: Colors.grey,
-                                      width: 1.0,
+                    child: Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 5),
+                          Text(
+                            question.questionText,
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: List<Widget>.generate(
+                                question.options.length, (i) {
+                              return Column(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      //color: Theme.of(context).colorScheme.primary,
+                                      border: Border.all(
+                                        color: Colors.grey,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(5.0),
                                     ),
-                                    borderRadius: BorderRadius.circular(5.0),
+                                    child: Text(question.options[i],
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                        )),
                                   ),
-                                  child: Text(question.options[i],
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                      )),
-                                ),
-                                Transform.scale(
-                                  scale:
-                                      1.5, // Aumenta o tamanho do círculo do Radio
-                                  child: Radio<int>(
-                                    value: i,
-                                    groupValue: selectedAnswer,
-                                    onChanged: null, // Desabilitado
+                                  Transform.scale(
+                                    scale:
+                                        1.5, // Aumenta o tamanho do círculo do Radio
+                                    child: Radio<int>(
+                                      value: i,
+                                      groupValue: selectedAnswer,
+                                      onChanged: null, // Desabilitado
+                                    ),
                                   ),
-                                ),
-                              ],
-                            );
-                          }),
-                        ),
-                      ],
+                                ],
+                              );
+                            }),
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 }))

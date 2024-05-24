@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:idate_libras/home_page.dart';
-import 'package:idate_libras/idate_t/form_summary_idate_t.dart';
 import 'package:idate_libras/question.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -66,10 +65,8 @@ class _QuestionPageIdateT extends State<QuestionPageIdateT> {
 
   void _goToHomePage() async {
     await _saveResult();
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const MyHomePage()),
-    );
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const MyHomePage()));
   }
 
   Future<void> _saveResult() async {
@@ -140,64 +137,67 @@ class _QuestionPageIdateT extends State<QuestionPageIdateT> {
         itemCount: _questions.length,
         itemBuilder: (context, index) {
           return Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 96), // ajustar a altura aqui
-                Text(
-                  _questions[index].questionText,
-                  style: const TextStyle(
-                      fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-
-                const SizedBox(height: 24),
-                Image.asset(_questions[index].videoAsset),
-                const SizedBox(height: 24),
-
-                Wrap(
-                  spacing: 1,
-                  runSpacing: 1,
-                  children: List<Widget>.generate(
-                      _questions[index].options.length, (i) {
-                    return Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.primary,
-                            border: Border.all(
-                              color: Colors.white,
-                              width: 1.0,
+            padding: const EdgeInsets.all(1.0),
+            child: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 96), // ajustar a altura aqui
+                  Text(
+                    
+                    _questions[index].questionText,
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+              
+                  const SizedBox(height: 24),
+                  Image.asset(_questions[index].videoAsset),
+                  const SizedBox(height: 30),
+              
+                  Wrap(
+                    spacing: 1,
+                    runSpacing: 1,
+                    children: List<Widget>.generate(
+                        _questions[index].options.length, (i) {
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.primary,
+                              border: Border.all(
+                                color: Colors.black,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(5.0),
                             ),
-                            borderRadius: BorderRadius.circular(5.0),
+                            child: Text(
+                                '${i + 1} \n ${_questions[index].options[i]}',
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 11.6,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                )),
                           ),
-                          child: Text(
-                              '${i + 1} \n ${_questions[index].options[i]}',
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 11.6,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              )),
-                        ),
-                        Transform.scale(
-                          scale: 1.5, // Aumenta o tamanho do círculo do Radio
-
-                          child: Radio<int>(
-                            value: i,
-                            groupValue: _selectedAnswers[index],
-                            onChanged: (value) =>
-                                _onOptionSelected(index, value),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
+                          Transform.scale(
+                            scale: 1.5, // Aumenta o tamanho do círculo do Radio
+              
+                            child: Radio<int>(
+                              value: i,
+                              groupValue: _selectedAnswers[index],
+                              onChanged: (value) =>
+                                  _onOptionSelected(index, value),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                            ),
                           ),
-                        ),
-                      ],
-                    );
-                  }),
-                ),
-              ],
+                        ],
+                      );
+                    }),
+                  ),
+                ],
+              ),
             ),
           );
         },
@@ -212,8 +212,8 @@ class _QuestionPageIdateT extends State<QuestionPageIdateT> {
               onPressed: _isNextButtonEnabled() ? _goToHomePage : null,
               shape: const CircleBorder(),
               backgroundColor:
-                  _isNextButtonEnabled() ? Colors.green : Colors.green.shade300,
-              child: const Icon(Icons.check),
+                  _isNextButtonEnabled() ? Colors.green: Colors.green.shade300,
+              child: const Icon(Icons.check, size: 30.0),
             )
           : FloatingActionButton(
               onPressed: _isNextButtonEnabled() ? _nextPage : null,

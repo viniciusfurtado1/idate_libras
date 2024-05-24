@@ -16,31 +16,35 @@ class _IdateInstrucoesState extends State<IdateInstrucoes> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: const Text("IDATE/LIBRAS"),
       ),
-      body: Padding(
-        padding:
-            const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 400),
-        child: Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            //color: Theme.of(context).colorScheme.inversePrimary,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                "INSTRUÇÕES INICIAIS",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              Image.asset('assets/images/video.png'),
-            ],
+      body: Center(
+        child: Padding(
+          padding:
+              const EdgeInsets.all(10),
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            
+            child: Column(
+              
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                //const SizedBox(height: 96),
+                const Text(
+                  "INSTRUÇÕES INICIAIS",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                Image.asset('assets/images/video.png'),
+              ],
+            ),
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => const MyHomePage()));
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const MyHomePage()));
         },
         shape: const CircleBorder(),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,

@@ -5,9 +5,15 @@ import 'package:idate_libras/idate_t/form_summary_idate_t.dart';
 import 'package:idate_libras/question.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ResultsPage extends StatelessWidget {
+class ResultsPage extends StatefulWidget {
   const ResultsPage({super.key});
 
+  @override
+  // ignore: library_private_types_in_public_api
+  _ResultsPageState createState() => _ResultsPageState();
+}
+
+class _ResultsPageState extends State<ResultsPage> {
   Future<List<Map<String, dynamic>>> _loadResults() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String>? savedResults = prefs.getStringList('idate_results');
@@ -19,18 +25,55 @@ class ResultsPage extends StatelessWidget {
     return [];
   }
 
+  Future<void> _clearResults() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('idate_results');
+    setState(() {});
+  }
+
+  void _confirmDelete(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Atenção',
+              style: TextStyle(fontWeight: FontWeight.bold)),
+          content: const Text(
+              'Você realmente deseja apagar todos os resultados?',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancelar',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Confirmar',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              onPressed: () {
+                _clearResults();
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('RESULTADOS'),
         backgroundColor: Theme.of(context).colorScheme.primary,
-        
         actions: [
           IconButton(
             color: Colors.white,
             icon: const Icon(Icons.delete), // Ícone para o botão
-            onPressed: () {},
+            onPressed: () => _confirmDelete(context),
           ),
         ],
       ),
@@ -42,7 +85,10 @@ class ResultsPage extends StatelessWidget {
           } else if (snapshot.hasError) {
             return const Center(child: Text('Erro ao carregar os resultados.'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text('Nenhum resultado encontrado.'));
+            return const Center(
+                child: Text('Nenhum resultado encontrado.',
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)));
           }
 
           List<Map<String, dynamic>> results = snapshot.data!;
@@ -52,19 +98,30 @@ class ResultsPage extends StatelessWidget {
             itemBuilder: (context, index) {
               var result = results[index];
               var date = DateTime.parse(result['date']);
+              String twoDigitsMinutes = date.minute.toString().padLeft(2, '0');
               var formattedDate =
-                  '${date.day}/${date.month}/${date.year} às ${date.hour}:${date.minute}';
-              return ListTile(
-                title: Text('Resultado do IDATE-T em $formattedDate'),
-                subtitle: Text('Score: ${result['score']}'),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ResultDetailPage(result: result),
-                    ),
-                  );
-                },
+                  '${date.day}/${date.month}/${date.year} às ${date.hour}:$twoDigitsMinutes';
+              return Container(
+                margin: const EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.black,
+                    width: 1.0,
+                  ),
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+                child: ListTile(
+                  title: Text('Resultado do IDATE-T em $formattedDate'),
+                  subtitle: Text('Score: ${result['score']}'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ResultDetailPage(result: result),
+                      ),
+                    );
+                  },
+                ),
               );
             },
           );
