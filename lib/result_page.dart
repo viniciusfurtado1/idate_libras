@@ -31,36 +31,59 @@ class _ResultsPageState extends State<ResultsPage> {
     setState(() {});
   }
 
-  void _confirmDelete(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Atenção',
-              style: TextStyle(fontWeight: FontWeight.bold)),
-          content: const Text(
-              'Você realmente deseja apagar todos os resultados?',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Cancelar',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: const Text('Confirmar',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              onPressed: () {
-                _clearResults();
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
+  Future<void> _confirmDelete(BuildContext context) async {
+    List<Map<String, dynamic>> results = await _loadResults();
+    if (results.isEmpty) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Aviso'),
+            content: const Text('Não há resultados para apagar.',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('ATENÇÃO'),
+            content: const Text(
+                'Você realmente deseja apagar todos os resultados?',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Cancelar',
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: const Text('Confirmar',
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                onPressed: () {
+                  _clearResults();
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   @override
