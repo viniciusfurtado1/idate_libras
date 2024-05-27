@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:idate_libras/idate_t/form_summary_idate_t.dart';
+import 'package:idate_libras/form_summary.dart';
 import 'package:idate_libras/question.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -90,7 +90,10 @@ class _ResultsPageState extends State<ResultsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('RESULTADOS'),
+        title: const Text(
+          'RESULTADOS',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         backgroundColor: Theme.of(context).colorScheme.primary,
         actions: [
           IconButton(
@@ -134,8 +137,16 @@ class _ResultsPageState extends State<ResultsPage> {
                   borderRadius: BorderRadius.circular(5.0),
                 ),
                 child: ListTile(
-                  title: Text('Resultado do IDATE-T em $formattedDate'),
-                  subtitle: Text('Score: ${result['score']}'),
+                  title: Text(
+                    'Resultado do IDATE-${result['idateType']} em $formattedDate',
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Text(
+                    'Score: ${result['score']}',
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -167,7 +178,8 @@ class ResultDetailPage extends StatelessWidget {
     List<int?> selectedAnswers =
         (result['selectedAnswers'] as List).cast<int?>();
 
-    return FormSummaryIdateT(
+    return FormSummaryIdate(
+      idateType: result['idateType'],
       questions: questions,
       selectedAnswers: selectedAnswers,
       score: result['score'] as int,

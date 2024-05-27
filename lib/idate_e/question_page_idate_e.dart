@@ -5,41 +5,41 @@ import 'package:flutter/material.dart';
 import 'package:idate_libras/question.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class QuestionPageIdateT extends StatefulWidget {
-  const QuestionPageIdateT({super.key});
+class QuestionPageIdateE extends StatefulWidget {
+  const QuestionPageIdateE({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
   _QuestionPageIdateT createState() => _QuestionPageIdateT();
 }
 
-class _QuestionPageIdateT extends State<QuestionPageIdateT> {
+class _QuestionPageIdateT extends State<QuestionPageIdateE> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
   List<int?> _selectedAnswers = [];
 
   static const options = [
-    'QUASE NUNCA',
-    'ÀS VEZES',
-    'FREQUENTEMENTE',
-    'QUASE SEMPRE'
+    'ABSOLUTAMENTE NÃO',
+    'UM POUCO',
+    'BASTANTE',
+    'MUITÍSSIMO'
   ];
   static const weights = [1, 2, 3, 4];
   static const reverseWeights = [4, 3, 2, 1];
 
   final List<Question> _questions = [
     Question(
-        questionText: '1. SENTIR BEM',
+        questionText: '1. SENTIR CALMO',
         videoAsset: 'assets/images/video.png',
         options: options,
         weights: reverseWeights),
     Question(
-        questionText: '2. CANSAR RÁPIDO',
+        questionText: '2. SENTIR SEGURO',
         videoAsset: 'assets/images/video.png',
         options: options,
-        weights: weights),
+        weights: reverseWeights),
     Question(
-        questionText: '3. SENTIR VONTADE CHORAR',
+        questionText: '3. ESTAR PRECIONADO',
         videoAsset: 'assets/images/video.png',
         options: options,
         weights: weights),
@@ -83,7 +83,7 @@ class _QuestionPageIdateT extends State<QuestionPageIdateT> {
     savedResults ??= [];
 
     final result = {
-      'idateType': "T",
+      'idateType': "E",
       'date': DateTime.now().toIso8601String(),
       'questions': _questions.map((q) => q.toJson()).toList(),
       'selectedAnswers': _selectedAnswers,
@@ -123,7 +123,7 @@ class _QuestionPageIdateT extends State<QuestionPageIdateT> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('IDATE-T/LIBRAS',
+        title: const Text('IDATE-E/LIBRAS',
             style: TextStyle(fontWeight: FontWeight.bold)),
         //${_currentPage + 1} de ${_questions.length}'
         backgroundColor: Theme.of(context).colorScheme.primary,

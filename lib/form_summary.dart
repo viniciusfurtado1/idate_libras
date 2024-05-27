@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:idate_libras/question.dart';
 
-class FormSummaryIdateT extends StatelessWidget {
+class FormSummaryIdate extends StatelessWidget {
   final List<Question> questions;
   final List<int?> selectedAnswers;
   final int score;
+  final String idateType;
 
-  const FormSummaryIdateT(
+  const FormSummaryIdate(
       {super.key,
+      required this.idateType,
       required this.questions,
       required this.selectedAnswers,
       required this.score});
@@ -17,7 +19,8 @@ class FormSummaryIdateT extends StatelessWidget {
     // Aqui você pode criar a tela de resumo do formulário
     return Scaffold(
       appBar: AppBar(
-        title: const Text('IDATE-T/LIBRAS'),
+        title: Text('IDATE-$idateType/LIBRAS',
+            style: const TextStyle(fontWeight: FontWeight.bold)),
         //${_currentPage + 1} de ${_questions.length}'
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
@@ -34,9 +37,10 @@ class FormSummaryIdateT extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'IDATE-T',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  Text(
+                    'IDATE-$idateType',
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     'SCORE: $score',
@@ -84,7 +88,7 @@ class FormSummaryIdateT extends StatelessWidget {
                                     ),
                                     child: Text(question.options[i],
                                         style: const TextStyle(
-                                          fontSize: 12,
+                                          fontSize: 14,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black,
                                         )),

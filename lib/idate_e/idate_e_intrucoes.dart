@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:idate_libras/idate_t/question_page_idate_t.dart';
+import 'package:idate_libras/idate_e/question_page_idate_e.dart';
 
-class IdateTInstrucoes extends StatefulWidget {
-  const IdateTInstrucoes({super.key});
+class IdateEInstrucoes extends StatefulWidget {
+  const IdateEInstrucoes({super.key});
 
   @override
-  State<IdateTInstrucoes> createState() => _IdateTInstrucoesState();
+  State<IdateEInstrucoes> createState() => _IdateTInstrucoesState();
 }
 
-class _IdateTInstrucoesState extends State<IdateTInstrucoes> {
+class _IdateTInstrucoesState extends State<IdateEInstrucoes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: const Text(
-          "IDATE-T/LIBRAS",
+          "IDATE-E/LIBRAS",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
@@ -27,7 +27,7 @@ class _IdateTInstrucoesState extends State<IdateTInstrucoes> {
             children: [
               //const SizedBox(height: 96),
               const Text(
-                "IDATE-T/LIBRAS INSTRUÇÕES",
+                "IDATE-E/LIBRAS INSTRUÇÕES",
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
               Image.asset('assets/images/video.png'),
@@ -38,7 +38,7 @@ class _IdateTInstrucoesState extends State<IdateTInstrucoes> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) => const QuestionPageIdateT()));
+              builder: (context) => const QuestionPageIdateE()));
         },
         shape: const CircleBorder(),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,

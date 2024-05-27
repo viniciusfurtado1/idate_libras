@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:idate_libras/idate_e/idate_e.dart';
-import 'package:idate_libras/idate_instrucoes.dart';
+import 'package:idate_libras/idate_e/idate_e_intrucoes.dart';
+//import 'package:idate_libras/idate_instrucoes.dart';
 import 'package:idate_libras/idate_t/idate_t_intrucoes.dart';
 import 'package:idate_libras/result_page.dart';
 
@@ -19,7 +19,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
-        leading: IconButton(
+        /*leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pushAndRemoveUntil(
@@ -28,8 +28,11 @@ class _MyHomePageState extends State<MyHomePage> {
               (Route<dynamic> route) => false,
             );
           },
+        ),*/
+        title: const Text(
+          "IDATE/LIBRAS",
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        title: const Text("IDATE/LIBRAS"),
         actions: [
           IconButton(
             color: Colors.white,
@@ -43,91 +46,98 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              "SELECIONE O FORMULÁRIO:",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 16.0),
-            Row(
-              children: [
-                Transform.scale(
-                  scale: 1.5,
-                  child: Radio<SingingCharacter>(
-                    value: SingingCharacter.idatet,
-                    groupValue: _character,
-                    onChanged: (SingingCharacter? value) {
-                      setState(() {
-                        _character = value;
-                      });
-                    },
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              const Text(
+                "INSTRUÇÕES INICIAIS",
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+              Image.asset('assets/images/video.png'),
+              const SizedBox(height: 32.0),
+              const Text(
+                "SELECIONE O FORMULÁRIO:",
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 16.0),
+              Row(
+                children: [
+                  Transform.scale(
+                    scale: 1.5,
+                    child: Radio<SingingCharacter>(
+                      value: SingingCharacter.idatet,
+                      groupValue: _character,
+                      onChanged: (SingingCharacter? value) {
+                        setState(() {
+                          _character = value;
+                        });
+                      },
+                    ),
                   ),
-                ),
-                const SizedBox(width: 16.0),
-                const Text(
-                  'IDATE-T',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Transform.scale(
-                  scale: 1.5,
-                  child: Radio<SingingCharacter>(
-                    value: SingingCharacter.idatee,
-                    groupValue: _character,
-                    onChanged: (SingingCharacter? value) {
-                      setState(() {
-                        _character = value;
-                      });
-                    },
+                  const SizedBox(width: 16.0),
+                  const Text(
+                    'IDATE-T',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                ),
-                const SizedBox(width: 16.0),
-                const Text(
-                  'IDATE-E',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            /*Row(
-              children: [
-                Transform.scale(
-                  scale: 1.5,
-                  child: Radio<SingingCharacter>(
-                    value: SingingCharacter.idatete,
-                    groupValue: _character,
-                    onChanged: (SingingCharacter? value) {
-                      setState(() {
-                        _character = value;
-                      });
-                    },
+                ],
+              ),
+              Row(
+                children: [
+                  Transform.scale(
+                    scale: 1.5,
+                    child: Radio<SingingCharacter>(
+                      value: SingingCharacter.idatee,
+                      groupValue: _character,
+                      onChanged: (SingingCharacter? value) {
+                        setState(() {
+                          _character = value;
+                        });
+                      },
+                    ),
                   ),
-                ),
-                const SizedBox(width: 16.0),
-                const Text(
-                  'IDATE-T e IDATE-E',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),*/
-          ],
+                  const SizedBox(width: 16.0),
+                  const Text(
+                    'IDATE-E',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              /*Row(
+                children: [
+                  Transform.scale(
+                    scale: 1.5,
+                    child: Radio<SingingCharacter>(
+                      value: SingingCharacter.idatete,
+                      groupValue: _character,
+                      onChanged: (SingingCharacter? value) {
+                        setState(() {
+                          _character = value;
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 16.0),
+                  const Text(
+                    'IDATE-T e IDATE-E',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),*/
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           if (_character == SingingCharacter.idatet) {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) =>
-                    const IdateTInstrucoes())); // colocar as intruçoes de volta depois
+                builder: (context) => const IdateTInstrucoes()));
           } else if (_character == SingingCharacter.idatee) {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => IdateE()));
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const IdateEInstrucoes()));
           } /*else if (_character == SingingCharacter.idatete) {
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (context) => IdateTeE()));
