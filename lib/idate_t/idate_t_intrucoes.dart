@@ -1,5 +1,7 @@
+import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:idate_libras/idate_t/question_page_idate_t.dart';
+import 'package:video_player/video_player.dart';
 
 class IdateTInstrucoes extends StatefulWidget {
   const IdateTInstrucoes({super.key});
@@ -9,6 +11,28 @@ class IdateTInstrucoes extends StatefulWidget {
 }
 
 class _IdateTInstrucoesState extends State<IdateTInstrucoes> {
+  late FlickManager flickManager;
+
+  @override
+  void initState() {
+    super.initState();
+    flickManager = FlickManager(
+      videoPlayerController: VideoPlayerController.asset(
+        "assets/videos/idatet/T-INSTRUCOES.mp4",
+      )..initialize().then((_) {
+          setState(() {
+            flickManager.flickControlManager?.pause();
+          });
+        }),
+    );
+  }
+
+  @override
+  void dispose() {
+    flickManager.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +54,12 @@ class _IdateTInstrucoesState extends State<IdateTInstrucoes> {
                 "IDATE-T/LIBRAS INSTRUÇÕES",
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
-              Image.asset('assets/images/video.png'),
+              Center(
+                child: AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child: FlickVideoPlayer(flickManager: flickManager),
+                ),
+              ),
             ],
           ),
         ),
