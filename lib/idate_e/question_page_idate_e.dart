@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-//import 'package:idate_libras/home_page.dart';
 import 'package:idate_libras/question.dart';
+import 'package:idate_libras/question_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class QuestionPageIdateE extends StatefulWidget {
@@ -18,6 +18,12 @@ class _QuestionPageIdateT extends State<QuestionPageIdateE> {
   int _currentPage = 0;
   List<int?> _selectedAnswers = [];
 
+  @override
+  void initState() {
+    super.initState();
+    _selectedAnswers = List<int?>.filled(_questions.length, null);
+  }
+
   static const options = [
     'ABSOLUTAMENTE NÃO',
     'UM POUCO',
@@ -30,26 +36,20 @@ class _QuestionPageIdateT extends State<QuestionPageIdateE> {
   final List<Question> _questions = [
     Question(
         questionText: '1. SENTIR CALMO',
-        videoAsset: 'assets/images/video.png',
+        videoAsset: 'assets/videos/idatee/E-1.mp4',
         options: options,
         weights: reverseWeights),
     Question(
         questionText: '2. SENTIR SEGURO',
-        videoAsset: 'assets/images/video.png',
+        videoAsset: 'assets/videos/idatee/E-2.mp4',
         options: options,
         weights: reverseWeights),
     Question(
         questionText: '3. ESTAR PRECIONADO',
-        videoAsset: 'assets/images/video.png',
+        videoAsset: 'assets/videos/idatee/E-3.mp4',
         options: options,
         weights: weights),
   ];
-
-  @override
-  void initState() {
-    super.initState();
-    _selectedAnswers = List<int?>.filled(_questions.length, null);
-  }
 
   void _nextPage() {
     if (_currentPage < _questions.length - 1) {
@@ -115,7 +115,6 @@ class _QuestionPageIdateT extends State<QuestionPageIdateE> {
   }
 
   bool _isNextButtonEnabled() {
-    // Verifica se alguma opção foi selecionada para a pergunta atual
     return _selectedAnswers[_currentPage] != null;
   }
 
@@ -125,7 +124,6 @@ class _QuestionPageIdateT extends State<QuestionPageIdateE> {
       appBar: AppBar(
         title: const Text('IDATE-E/LIBRAS',
             style: TextStyle(fontWeight: FontWeight.bold)),
-        //${_currentPage + 1} de ${_questions.length}'
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: PageView.builder(
@@ -133,84 +131,12 @@ class _QuestionPageIdateT extends State<QuestionPageIdateE> {
         controller: _pageController,
         itemCount: _questions.length,
         itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.all(1.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(height: 96), // ajustar a altura aqui
-                Text(
-                  textAlign: TextAlign.start,
-                  _questions[index].questionText,
-                  style: const TextStyle(
-                      fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-
-                const SizedBox(height: 24),
-                Image.asset(_questions[index].videoAsset),
-                const SizedBox(height: 30),
-
-                Center(
-                  child: Wrap(
-                    alignment: WrapAlignment.spaceAround,
-                    spacing: 1,
-                    //runSpacing: 1,
-                    children: List<Widget>.generate(
-                        _questions[index].options.length, (i) {
-                      return Column(
-                        children: [
-                          Container(
-                            //width: 114,
-                            padding:
-                                const EdgeInsets.only(left: 10.0, right: 10.0),
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.primary,
-                              border: Border.all(
-                                color: Colors.black,
-                                width: 1.0,
-                              ),
-                              borderRadius: BorderRadius.circular(25.0),
-                            ),
-
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text('${i + 1}',
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                    )),
-                                Text(_questions[index].options[i],
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                    )),
-                              ],
-                            ),
-                          ),
-                          Transform.scale(
-                            scale: 1.5, // Aumenta o tamanho do círculo do Radio
-
-                            child: Radio<int>(
-                              value: i,
-                              groupValue: _selectedAnswers[index],
-                              onChanged: (value) =>
-                                  _onOptionSelected(index, value),
-                              materialTapTargetSize:
-                                  MaterialTapTargetSize.shrinkWrap,
-                            ),
-                          ),
-                        ],
-                      );
-                    }),
-                  ),
-                ),
-              ],
-            ),
+          return QuestionWidget(
+            question: _questions[index],
+            selectedAnswer: _selectedAnswers[index],
+            onOptionSelected: (selectedIndex) {
+              _onOptionSelected(index, selectedIndex);
+            },
           );
         },
         onPageChanged: (index) {

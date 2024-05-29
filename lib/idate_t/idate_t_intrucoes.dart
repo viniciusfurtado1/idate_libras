@@ -18,7 +18,7 @@ class _IdateTInstrucoesState extends State<IdateTInstrucoes> {
     super.initState();
     flickManager = FlickManager(
       videoPlayerController: VideoPlayerController.asset(
-        "assets/videos/idatet/T-INSTRUCOES.mp4",
+        "assets/videos/idatet/T-0.mp4",
       )..initialize().then((_) {
           setState(() {
             flickManager.flickControlManager?.pause();
@@ -45,7 +45,7 @@ class _IdateTInstrucoesState extends State<IdateTInstrucoes> {
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.only(top: 16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [

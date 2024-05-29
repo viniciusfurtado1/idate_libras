@@ -1,5 +1,7 @@
+import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:idate_libras/idate_e/question_page_idate_e.dart';
+import 'package:video_player/video_player.dart';
 
 class IdateEInstrucoes extends StatefulWidget {
   const IdateEInstrucoes({super.key});
@@ -9,6 +11,28 @@ class IdateEInstrucoes extends StatefulWidget {
 }
 
 class _IdateTInstrucoesState extends State<IdateEInstrucoes> {
+  late FlickManager flickManager;
+
+  @override
+  void initState() {
+    super.initState();
+    flickManager = FlickManager(
+      videoPlayerController: VideoPlayerController.asset(
+        "assets/videos/idatee/E-0.mp4",
+      )..initialize().then((_) {
+          setState(() {
+            flickManager.flickControlManager?.pause();
+          });
+        }),
+    );
+  }
+
+  @override
+  void dispose() {
+    flickManager.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +45,7 @@ class _IdateTInstrucoesState extends State<IdateEInstrucoes> {
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.only(top: 16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -30,7 +54,12 @@ class _IdateTInstrucoesState extends State<IdateEInstrucoes> {
                 "IDATE-E/LIBRAS INSTRUÇÕES",
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
-              Image.asset('assets/images/video.png'),
+              Center(
+                child: AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child: FlickVideoPlayer(flickManager: flickManager),
+                ),
+              ),
             ],
           ),
         ),
