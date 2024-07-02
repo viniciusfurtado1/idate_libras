@@ -19,11 +19,7 @@ class _IdateTInstrucoesState extends State<IdateEInstrucoes> {
     flickManager = FlickManager(
       videoPlayerController: VideoPlayerController.asset(
         "assets/videos/idatee/E-0.mp4",
-      )..initialize().then((_) {
-          setState(() {
-            flickManager.flickControlManager?.pause();
-          });
-        }),
+      )
     );
   }
 
@@ -37,10 +33,13 @@ class _IdateTInstrucoesState extends State<IdateEInstrucoes> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: Colors.white, // Defina a cor desejada aqui
+        ),
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: const Text(
           "IDATE-E/LIBRAS",
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white),
         ),
       ),
       body: Center(
@@ -51,9 +50,10 @@ class _IdateTInstrucoesState extends State<IdateEInstrucoes> {
             children: [
               //const SizedBox(height: 96),
               const Text(
-                "IDATE-E/LIBRAS INSTRUÇÕES",
+                "INSTRUÇÕES",
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
+              const SizedBox(height: 16),
               Center(
                 child: AspectRatio(
                   aspectRatio: 16 / 9,
@@ -70,8 +70,8 @@ class _IdateTInstrucoesState extends State<IdateEInstrucoes> {
               builder: (context) => const QuestionPageIdateE()));
         },
         shape: const CircleBorder(),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        child: const Icon(Icons.arrow_forward),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        child: const Icon(Icons.arrow_forward, color: Colors.white,),
       ),
     );
   }

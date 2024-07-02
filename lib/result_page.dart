@@ -90,9 +90,12 @@ class _ResultsPageState extends State<ResultsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: Colors.white, // Defina a cor desejada aqui
+        ),
         title: const Text(
           'RESULTADOS',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white),
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
         actions: [
@@ -130,23 +133,22 @@ class _ResultsPageState extends State<ResultsPage> {
               return Container(
                 margin: const EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.5), // Cor de fundo
                   border: Border.all(
                     color: Colors.black,
                     width: 1.0,
                   ),
-                  borderRadius: BorderRadius.circular(5.0),
+                  borderRadius: BorderRadius.circular(25.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 2,
+                      offset: const Offset(0, 5), // Alterne a posição da sombra
+                    ),
+                  ],
                 ),
-                child: ListTile(
-                  title: Text(
-                    'Resultado do IDATE-${result['idateType']} em $formattedDate',
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text(
-                    'Score: ${result['score']}',
-                    style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
+                child: InkWell(
                   onTap: () {
                     Navigator.push(
                       context,
@@ -155,6 +157,23 @@ class _ResultsPageState extends State<ResultsPage> {
                       ),
                     );
                   },
+                  borderRadius: BorderRadius.circular(5.0),
+                  child: ListTile(
+                    title: Text(
+                      'Resultado do IDATE-${result['idateType']} em $formattedDate',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    subtitle: Text(
+                      'Score: ${result['score']}',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ),
               );
             },

@@ -17,14 +17,8 @@ class _IdateTInstrucoesState extends State<IdateTInstrucoes> {
   void initState() {
     super.initState();
     flickManager = FlickManager(
-      videoPlayerController: VideoPlayerController.asset(
-        "assets/videos/idatet/T-0.mp4",
-      )..initialize().then((_) {
-          setState(() {
-            flickManager.flickControlManager?.pause();
-          });
-        }),
-    );
+        videoPlayerController:
+            VideoPlayerController.asset("assets/videos/idatet/T-0.mp4"));
   }
 
   @override
@@ -37,10 +31,13 @@ class _IdateTInstrucoesState extends State<IdateTInstrucoes> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: Colors.white, // Defina a cor desejada aqui
+        ),
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: const Text(
           "IDATE-T/LIBRAS",
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white),
         ),
       ),
       body: Center(
@@ -51,9 +48,10 @@ class _IdateTInstrucoesState extends State<IdateTInstrucoes> {
             children: [
               //const SizedBox(height: 96),
               const Text(
-                "IDATE-T/LIBRAS INSTRUÇÕES",
+                "INSTRUÇÕES",
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
+              const SizedBox(height: 16),
               Center(
                 child: AspectRatio(
                   aspectRatio: 16 / 9,
@@ -70,8 +68,8 @@ class _IdateTInstrucoesState extends State<IdateTInstrucoes> {
               builder: (context) => const QuestionPageIdateT()));
         },
         shape: const CircleBorder(),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        child: const Icon(Icons.arrow_forward),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        child: const Icon(Icons.arrow_forward, color: Colors.white,),
       ),
     );
   }

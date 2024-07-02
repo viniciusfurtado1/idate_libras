@@ -31,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),*/
         title: const Text(
           "IDATE/LIBRAS",
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white),
         ),
         actions: [
           IconButton(
@@ -52,12 +52,13 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              const Text(
+              /*const Text(
                 "INSTRUÇÕES INICIAIS",
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
               Image.asset('assets/images/video.png'),
-              const SizedBox(height: 32.0),
+              */
+              const SizedBox(height: 0.0),
               const Text(
                 "SELECIONE O FORMULÁRIO:",
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
@@ -144,8 +145,8 @@ class _MyHomePageState extends State<MyHomePage> {
           }*/
         },
         shape: const CircleBorder(),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        child: const Icon(Icons.arrow_forward),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        child: const Icon(Icons.arrow_forward, color: Colors.white,),
       ),
     );
   }

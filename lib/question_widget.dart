@@ -22,19 +22,13 @@ class QuestionWidget extends StatefulWidget {
 
 class _QuestionWidgetState extends State<QuestionWidget> {
   late FlickManager flickManager;
-  bool _isInitialized = false;
+  //bool _isInitialized = false;
 
   @override
   void initState() {
     super.initState();
     flickManager = FlickManager(
-      videoPlayerController: VideoPlayerController.asset(widget.question.videoAsset)
-        ..initialize().then((_) {
-          setState(() {
-            _isInitialized = true;
-            flickManager.flickControlManager?.pause();
-          });
-        }),
+      videoPlayerController: VideoPlayerController.asset(widget.question.videoAsset)  
     );
   }
 
@@ -47,26 +41,25 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(1.0),
+      padding: const EdgeInsets.all(0.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
+        
         children: [
-          const SizedBox(height: 96),
+          const SizedBox(height: 16),
           Text(
             textAlign: TextAlign.start,
             widget.question.questionText,
             style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 16),
           Center(
             child: AspectRatio(
               aspectRatio: 16 / 9,
-              child: _isInitialized
-                  ? FlickVideoPlayer(flickManager: flickManager)
-                  : const CircularProgressIndicator(),
+              child: FlickVideoPlayer(flickManager: flickManager)
             ),
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 32),
           Center(
             child: Wrap(
               alignment: WrapAlignment.spaceAround,

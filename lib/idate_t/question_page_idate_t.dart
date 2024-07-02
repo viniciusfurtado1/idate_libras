@@ -122,8 +122,11 @@ class _QuestionPageIdateT extends State<QuestionPageIdateT> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: Colors.white, // Defina a cor desejada aqui
+        ),
         title: const Text('IDATE-T/LIBRAS',
-            style: TextStyle(fontWeight: FontWeight.bold)),
+            style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white),),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: PageView.builder(
@@ -151,15 +154,15 @@ class _QuestionPageIdateT extends State<QuestionPageIdateT> {
               shape: const CircleBorder(),
               backgroundColor:
                   _isNextButtonEnabled() ? Colors.green : Colors.green.shade300,
-              child: const Icon(Icons.check, size: 30.0),
+              child: const Icon(Icons.check, size: 32.0),
             )
           : FloatingActionButton(
               onPressed: _isNextButtonEnabled() ? _nextPage : null,
               shape: const CircleBorder(),
               backgroundColor: _isNextButtonEnabled()
-                  ? Theme.of(context).colorScheme.inversePrimary
-                  : Theme.of(context).colorScheme.primary,
-              child: const Icon(Icons.arrow_forward),
+                  ? Theme.of(context).colorScheme.primary
+                  : Theme.of(context).colorScheme.inversePrimary,
+              child: const Icon(Icons.arrow_forward, color: Colors.white,),
             ),
     );
   }

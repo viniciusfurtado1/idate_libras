@@ -19,8 +19,11 @@ class FormSummaryIdate extends StatelessWidget {
     // Aqui você pode criar a tela de resumo do formulário
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: Colors.white, // Defina a cor desejada aqui
+        ),
         title: Text('IDATE-$idateType/LIBRAS',
-            style: const TextStyle(fontWeight: FontWeight.bold)),
+            style: const TextStyle(fontWeight: FontWeight.normal, color: Colors.white),),
         //${_currentPage + 1} de ${_questions.length}'
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
