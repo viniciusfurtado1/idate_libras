@@ -94,7 +94,7 @@ class _ResultsPageState extends State<ResultsPage> {
           color: Colors.white, // Defina a cor desejada aqui
         ),
         title: const Text(
-          'RESULTADOS',
+          'IDATE/Libras',
           style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white),
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
@@ -106,79 +106,103 @@ class _ResultsPageState extends State<ResultsPage> {
           ),
         ],
       ),
-      body: FutureBuilder<List<Map<String, dynamic>>>(
-        future: _loadResults(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return const Center(child: Text('Erro ao carregar os resultados.'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(
-                child: Text('Nenhum resultado encontrado.',
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)));
-          }
+      body: Container(
+        color: const Color(0xFFF6F6F6),
+        child: FutureBuilder<List<Map<String, dynamic>>>(
+          future: _loadResults(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return const Center(
+                  child: Text('Erro ao carregar os resultados.'));
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return const Center(
+                  child: Text('Nenhum resultado encontrado.',
+                      style: TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold)));
+            }
 
-          List<Map<String, dynamic>> results = snapshot.data!;
+            List<Map<String, dynamic>> results = snapshot.data!;
 
-          return ListView.builder(
-            itemCount: results.length,
-            itemBuilder: (context, index) {
-              var result = results[index];
-              var date = DateTime.parse(result['date']);
-              String twoDigitsMinutes = date.minute.toString().padLeft(2, '0');
-              var formattedDate =
-                  '${date.day}/${date.month}/${date.year} às ${date.hour}:$twoDigitsMinutes';
-              return Container(
-                margin: const EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.5), // Cor de fundo
-                  border: Border.all(
-                    color: Colors.black,
-                    width: 1.0,
-                  ),
-                  borderRadius: BorderRadius.circular(25.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 2,
-                      blurRadius: 2,
-                      offset: const Offset(0, 5), // Alterne a posição da sombra
-                    ),
-                  ],
-                ),
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ResultDetailPage(result: result),
-                      ),
-                    );
-                  },
-                  borderRadius: BorderRadius.circular(5.0),
-                  child: ListTile(
-                    title: Text(
-                      'Resultado do IDATE-${result['idateType']} em $formattedDate',
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    subtitle: Text(
-                      'Score: ${result['score']}',
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Text(
+                    'RESULTADOS:',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-              );
-            },
-          );
-        },
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: results.length,
+                    itemBuilder: (context, index) {
+                      var result = results[index];
+                      var date = DateTime.parse(result['date']);
+                      String twoDigitsMinutes =
+                          date.minute.toString().padLeft(2, '0');
+                      var formattedDate =
+                          '${date.day}/${date.month}/${date.year} às ${date.hour}:$twoDigitsMinutes';
+                      return Container(
+                        margin: const EdgeInsets.all(8.0),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.5), // Cor de fundo
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(25.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 1,
+                              offset: const Offset(
+                                  2, 2), // Alterne a posição da sombra
+                            ),
+                          ],
+                        ),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ResultDetailPage(result: result),
+                              ),
+                            );
+                          },
+                          borderRadius: BorderRadius.circular(25.0),
+                          child: ListTile(
+                            title: Text(
+                              'Resultado do IDATE-${result['idateType']} em $formattedDate',
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            subtitle: Text(
+                              'Score: ${result['score']}',
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }

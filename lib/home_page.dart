@@ -30,7 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         ),*/
         title: const Text(
-          "IDATE/LIBRAS",
+          "IDATE/Libras",
           style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white),
         ),
         actions: [
@@ -47,87 +47,90 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              /*const Text(
-                "INSTRUÇÕES INICIAIS",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
-              Image.asset('assets/images/video.png'),
-              */
-              const SizedBox(height: 0.0),
-              const Text(
-                "SELECIONE O FORMULÁRIO:",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 16.0),
-              Row(
-                children: [
-                  Transform.scale(
-                    scale: 1.5,
-                    child: Radio<SingingCharacter>(
-                      value: SingingCharacter.idatet,
-                      groupValue: _character,
-                      onChanged: (SingingCharacter? value) {
-                        setState(() {
-                          _character = value;
-                        });
-                      },
+        child: Container(
+          color: const Color(0xFFF6F6F6),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                /*const Text(
+                  "INSTRUÇÕES INICIAIS",
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                ),
+                Image.asset('assets/images/video.png'),
+                */
+                const SizedBox(height: 0.0),
+                const Text(
+                  "SELECIONE O FORMULÁRIO:",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.normal),
+                ),
+                const SizedBox(height: 16.0),
+                Row(
+                  children: [
+                    Transform.scale(
+                      scale: 1.5,
+                      child: Radio<SingingCharacter>(
+                        value: SingingCharacter.idatet,
+                        groupValue: _character,
+                        onChanged: (SingingCharacter? value) {
+                          setState(() {
+                            _character = value;
+                          });
+                        },
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 16.0),
-                  const Text(
-                    'IDATE-T',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Transform.scale(
-                    scale: 1.5,
-                    child: Radio<SingingCharacter>(
-                      value: SingingCharacter.idatee,
-                      groupValue: _character,
-                      onChanged: (SingingCharacter? value) {
-                        setState(() {
-                          _character = value;
-                        });
-                      },
+                    const SizedBox(width: 16.0),
+                    const Text(
+                      'IDATE-T',
+                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
-                  ),
-                  const SizedBox(width: 16.0),
-                  const Text(
-                    'IDATE-E',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-              /*Row(
-                children: [
-                  Transform.scale(
-                    scale: 1.5,
-                    child: Radio<SingingCharacter>(
-                      value: SingingCharacter.idatete,
-                      groupValue: _character,
-                      onChanged: (SingingCharacter? value) {
-                        setState(() {
-                          _character = value;
-                        });
-                      },
+                  ],
+                ),
+                Row(
+                  children: [
+                    Transform.scale(
+                      scale: 1.5,
+                      child: Radio<SingingCharacter>(
+                        value: SingingCharacter.idatee,
+                        groupValue: _character,
+                        onChanged: (SingingCharacter? value) {
+                          setState(() {
+                            _character = value;
+                          });
+                        },
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 16.0),
-                  const Text(
-                    'IDATE-T e IDATE-E',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),*/
-            ],
+                    const SizedBox(width: 16.0),
+                    const Text(
+                      'IDATE-E',
+                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                /*Row(
+                  children: [
+                    Transform.scale(
+                      scale: 1.5,
+                      child: Radio<SingingCharacter>(
+                        value: SingingCharacter.idatete,
+                        groupValue: _character,
+                        onChanged: (SingingCharacter? value) {
+                          setState(() {
+                            _character = value;
+                          });
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 16.0),
+                    const Text(
+                      'IDATE-T e IDATE-E',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),*/
+              ],
+            ),
           ),
         ),
       ),

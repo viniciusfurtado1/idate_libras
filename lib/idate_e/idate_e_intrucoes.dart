@@ -43,24 +43,27 @@ class _IdateTInstrucoesState extends State<IdateEInstrucoes> {
         ),
       ),
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              //const SizedBox(height: 96),
-              const Text(
-                "INSTRUÇÕES",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 16),
-              Center(
-                child: AspectRatio(
-                  aspectRatio: 16 / 9,
-                  child: FlickVideoPlayer(flickManager: flickManager),
+        child: Container(
+          color: const Color(0xFFF6F6F6),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                //const SizedBox(height: 96),
+                const Text(
+                  "INSTRUÇÕES",
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.normal),
                 ),
-              ),
-            ],
+                const SizedBox(height: 16),
+                Center(
+                  child: AspectRatio(
+                    aspectRatio: 16 / 9,
+                    child: FlickVideoPlayer(flickManager: flickManager),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
