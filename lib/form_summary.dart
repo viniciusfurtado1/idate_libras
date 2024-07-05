@@ -23,7 +23,7 @@ class FormSummaryIdate extends StatelessWidget {
           color: Colors.white, // Defina a cor desejada aqui
         ),
         title: Text(
-          'IDATE-$idateType/LIBRAS',
+          'IDATE-$idateType/Libras',
           style: const TextStyle(
               fontWeight: FontWeight.normal, color: Colors.white),
         ),

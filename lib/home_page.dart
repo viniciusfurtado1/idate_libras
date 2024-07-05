@@ -83,7 +83,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     const SizedBox(width: 16.0),
                     const Text(
                       'IDATE-T',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -104,7 +105,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     const SizedBox(width: 16.0),
                     const Text(
                       'IDATE-E',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -149,7 +151,10 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         shape: const CircleBorder(),
         backgroundColor: Theme.of(context).colorScheme.primary,
-        child: const Icon(Icons.arrow_forward, color: Colors.white,),
+        child: const Icon(
+          Icons.arrow_forward,
+          color: Colors.white,
+        ),
       ),
     );
   }

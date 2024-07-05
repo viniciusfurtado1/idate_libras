@@ -17,10 +17,9 @@ class _IdateTInstrucoesState extends State<IdateEInstrucoes> {
   void initState() {
     super.initState();
     flickManager = FlickManager(
-      videoPlayerController: VideoPlayerController.asset(
-        "assets/videos/idatee/E-0.mp4",
-      )
-    );
+        videoPlayerController: VideoPlayerController.asset(
+      "assets/videos/idatee/E-0.mp4",
+    ));
   }
 
   @override
@@ -74,7 +73,10 @@ class _IdateTInstrucoesState extends State<IdateEInstrucoes> {
         },
         shape: const CircleBorder(),
         backgroundColor: Theme.of(context).colorScheme.primary,
-        child: const Icon(Icons.arrow_forward, color: Colors.white,),
+        child: const Icon(
+          Icons.arrow_forward,
+          color: Colors.white,
+        ),
       ),
     );
   }

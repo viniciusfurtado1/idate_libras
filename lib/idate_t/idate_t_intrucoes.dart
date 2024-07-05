@@ -72,7 +72,10 @@ class _IdateTInstrucoesState extends State<IdateTInstrucoes> {
         },
         shape: const CircleBorder(),
         backgroundColor: Theme.of(context).colorScheme.primary,
-        child: const Icon(Icons.arrow_forward, color: Colors.white,),
+        child: const Icon(
+          Icons.arrow_forward,
+          color: Colors.white,
+        ),
       ),
     );
   }

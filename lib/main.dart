@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:idate_libras/home_page.dart';
-//import 'package:idate_libras/idate_instrucoes.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {

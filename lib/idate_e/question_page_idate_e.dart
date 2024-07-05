@@ -125,8 +125,10 @@ class _QuestionPageIdateT extends State<QuestionPageIdateE> {
         iconTheme: const IconThemeData(
           color: Colors.white, // Defina a cor desejada aqui
         ),
-        title: const Text('IDATE-E/LIBRAS',
-            style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white),),
+        title: const Text(
+          'IDATE-E/Libras',
+          style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white),
+        ),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: PageView.builder(
@@ -162,7 +164,10 @@ class _QuestionPageIdateT extends State<QuestionPageIdateE> {
               backgroundColor: _isNextButtonEnabled()
                   ? Theme.of(context).colorScheme.primary
                   : Theme.of(context).colorScheme.inversePrimary,
-              child: const Icon(Icons.arrow_forward, color: Colors.white,),
+              child: const Icon(
+                Icons.arrow_forward,
+                color: Colors.white,
+              ),
             ),
     );
   }

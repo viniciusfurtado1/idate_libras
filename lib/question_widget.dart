@@ -28,8 +28,8 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   void initState() {
     super.initState();
     flickManager = FlickManager(
-      videoPlayerController: VideoPlayerController.asset(widget.question.videoAsset)  
-    );
+        videoPlayerController:
+            VideoPlayerController.asset(widget.question.videoAsset));
   }
 
   @override
@@ -46,27 +46,27 @@ class _QuestionWidgetState extends State<QuestionWidget> {
         padding: const EdgeInsets.all(0.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          
           children: [
             const SizedBox(height: 16),
             Text(
               textAlign: TextAlign.start,
               widget.question.questionText,
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.normal),
+              style:
+                  const TextStyle(fontSize: 24, fontWeight: FontWeight.normal),
             ),
             const SizedBox(height: 16),
             Center(
               child: AspectRatio(
-                aspectRatio: 16 / 9,
-                child: FlickVideoPlayer(flickManager: flickManager)
-              ),
+                  aspectRatio: 16 / 9,
+                  child: FlickVideoPlayer(flickManager: flickManager)),
             ),
             const SizedBox(height: 32),
             Center(
               child: Wrap(
                 alignment: WrapAlignment.spaceAround,
                 spacing: 1,
-                children: List<Widget>.generate(widget.question.options.length, (i) {
+                children:
+                    List<Widget>.generate(widget.question.options.length, (i) {
                   return Column(
                     children: [
                       Container(
@@ -106,7 +106,8 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                           value: i,
                           groupValue: widget.selectedAnswer,
                           onChanged: widget.onOptionSelected,
-                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
                         ),
                       ),
                     ],

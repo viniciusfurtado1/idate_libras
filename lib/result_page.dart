@@ -38,7 +38,7 @@ class _ResultsPageState extends State<ResultsPage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Aviso'),
+            title: const Text('AVISO'),
             content: const Text('Não há resultados para apagar.',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             actions: <Widget>[
