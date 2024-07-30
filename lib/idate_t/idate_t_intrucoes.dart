@@ -36,7 +36,7 @@ class _IdateTInstrucoesState extends State<IdateTInstrucoes> {
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: const Text(
-          "IDATE-T/LIBRAS",
+          "IDATE-T/Libras",
           style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white),
         ),
       ),
