@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 const SizedBox(height: 0.0),
                 const Text(
                   "SELECIONE O FORMULÁRIO:",
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.normal),
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 16.0),
                 Row(

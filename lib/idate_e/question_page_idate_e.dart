@@ -49,6 +49,91 @@ class _QuestionPageIdateT extends State<QuestionPageIdateE> {
         videoAsset: 'assets/videos/idatee/E-3.mp4',
         options: options,
         weights: weights),
+    Question(
+        questionText: '4. ARREPENDER',
+        videoAsset: 'assets/videos/idatee/E-4.mp4',
+        options: options,
+        weights: weights),
+    Question(
+        questionText: '5. SENTIR LIVRE',
+        videoAsset: 'assets/videos/idatee/E-5.mp4',
+        options: options,
+        weights: reverseWeights),
+    Question(
+        questionText: '6. SENTIR PERTUBADO',
+        videoAsset: 'assets/videos/idatee/E-6.mp4',
+        options: options,
+        weights: weights),
+    Question(
+        questionText: '7. PREOCUPAR FUTURO QUANDO ACONTECER COISAS RUINS',
+        videoAsset: 'assets/videos/idatee/E-7.mp4',
+        options: options,
+        weights: weights),
+    Question(
+        questionText: '8. SENTIR DESCANSAR',
+        videoAsset: 'assets/videos/idatee/E-8.mp4',
+        options: options,
+        weights: reverseWeights),
+    Question(
+        questionText: '9. SENTIR ANSIOSO',
+        videoAsset: 'assets/videos/idatee/E-9.mp4',
+        options: options,
+        weights: weights),
+    Question(
+        questionText: '10. SENTIR BEM CASA',
+        videoAsset: 'assets/videos/idatee/E-10.mp4',
+        options: options,
+        weights: reverseWeights),
+    Question(
+        questionText: '11. SENTIR CONFIANÇA',
+        videoAsset: 'assets/videos/idatee/E-11.mp4',
+        options: options,
+        weights: reverseWeights),
+    Question(
+        questionText: '12. SENTIR NERVOSO',
+        videoAsset: 'assets/videos/idatee/E-12.mp4',
+        options: options,
+        weights: weights),
+    Question(
+        questionText: '13. SENTIR AGITADO',
+        videoAsset: 'assets/videos/idatee/E-13.mp4',
+        options: options,
+        weights: weights),
+    Question(
+        questionText: '14. SENTIR MUITO NERVOSO',
+        videoAsset: 'assets/videos/idatee/E-14.mp4',
+        options: options,
+        weights: weights),
+    Question(
+        questionText: '15. SENTIR LEVE',
+        videoAsset: 'assets/videos/idatee/E-15.mp4',
+        options: options,
+        weights: reverseWeights),
+    Question(
+        questionText: '16. SATISFEITO',
+        videoAsset: 'assets/videos/idatee/E-16.mp4',
+        options: options,
+        weights: reverseWeights),
+    Question(
+        questionText: '17. SENTIR PREOCUPAR',
+        videoAsset: 'assets/videos/idatee/E-17.mp4',
+        options: options,
+        weights: weights),
+    Question(
+        questionText: '18. SENTIR PREOCUPAR EXAUASTO CONFUSO',
+        videoAsset: 'assets/videos/idatee/E-18.mp4',
+        options: options,
+        weights: weights),
+    Question(
+        questionText: '19. SENTIR ALEGRE',
+        videoAsset: 'assets/videos/idatee/E-19.mp4',
+        options: options,
+        weights: reverseWeights),
+    Question(
+        questionText: '20. SENTIR BEM',
+        videoAsset: 'assets/videos/idatee/E-20.mp4',
+        options: options,
+        weights: reverseWeights),
   ];
 
   void _nextPage() {

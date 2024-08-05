@@ -51,7 +51,7 @@ class _IdateTInstrucoesState extends State<IdateTInstrucoes> {
                 //const SizedBox(height: 96),
                 const Text(
                   "INSTRUÇÕES",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.normal),
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 16),
                 Center(

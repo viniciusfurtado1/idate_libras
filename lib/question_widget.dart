@@ -49,10 +49,10 @@ class _QuestionWidgetState extends State<QuestionWidget> {
           children: [
             const SizedBox(height: 16),
             Text(
-              textAlign: TextAlign.start,
+              textAlign: TextAlign.center,
               widget.question.questionText,
               style:
-                  const TextStyle(fontSize: 24, fontWeight: FontWeight.normal),
+                  const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             Center(

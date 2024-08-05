@@ -49,6 +49,91 @@ class _QuestionPageIdateT extends State<QuestionPageIdateT> {
         videoAsset: 'assets/videos/idatet/T-3.mp4',
         options: options,
         weights: weights),
+    Question(
+        questionText: '4. QUERER SER FELIZ IGUAL PESSOAS VEJO',
+        videoAsset: 'assets/videos/idatet/T-4.mp4',
+        options: options,
+        weights: weights),
+    Question(
+        questionText: '5. PERDER OPORTUNIDADE PORQUE EU NÃO CONSEGUIR DECIDIR RÁPIDO',
+        videoAsset: 'assets/videos/idatet/T-5.mp4',
+        options: options,
+        weights: weights),
+    Question(
+        questionText: '6. SENTIR RELAXAR',
+        videoAsset: 'assets/videos/idatet/T-6.mp4',
+        options: options,
+        weights: reverseWeights),
+    Question(
+        questionText: '7. SENTIR CALMO CONFIANÇA PRÓPRIO',
+        videoAsset: 'assets/videos/idatet/T-7.mp4',
+        options: options,
+        weights: reverseWeights),
+    Question(
+        questionText: '8. SENTIR DIFÍCIL RESOLVER MUITAS COISAS',
+        videoAsset: 'assets/videos/idatet/T-8.mp4',
+        options: options,
+        weights: weights),
+    Question(
+        questionText: '9. PREOCUPAR COISAS NÃO TER IMPORTÂNCIA',
+        videoAsset: 'assets/videos/idatet/T-9.mp4',
+        options: options,
+        weights: weights),
+    Question(
+        questionText: '10. SER FELIZ',
+        videoAsset: 'assets/videos/idatet/T-10.mp4',
+        options: options,
+        weights: reverseWeights),
+    Question(
+        questionText: '11. ABSORVER PROBLEMAS',
+        videoAsset: 'assets/videos/idatet/T-11.mp4',
+        options: options,
+        weights: weights),
+    Question(
+        questionText: '12. DENTRO PRÓPRIO CONFIANÇA NÃO TER',
+        videoAsset: 'assets/videos/idatet/T-12.mp4',
+        options: options,
+        weights: weights),
+    Question(
+        questionText: '13. SENTIR SEGURO',
+        videoAsset: 'assets/videos/idatet/T-13.mp4',
+        options: options,
+        weights: reverseWeights),
+    Question(
+        questionText: '14. EVITAR PROBLEMAS',
+        videoAsset: 'assets/videos/idatet/T-14.mp4',
+        options: options,
+        weights: weights),
+    Question(
+        questionText: '15. SENTIR DEPRIMIDO',
+        videoAsset: 'assets/videos/idatet/T-15.mp4',
+        options: options,
+        weights: weights),
+    Question(
+        questionText: '16. SENTIR SATISFEITO',
+        videoAsset: 'assets/videos/idatet/T-16.mp4',
+        options: options,
+        weights: reverseWeights),
+    Question(
+        questionText: '17. IDEIAS PENSAR BOBAS FICAR CABEÇA COMEÇAR PREOCUPAR',
+        videoAsset: 'assets/videos/idatet/T-17.mp4',
+        options: options,
+        weights: weights),
+    Question(
+        questionText: '18. PENSAR NEGATIVO DESAPONTADO NÃO CONSEGUIR ESQUECER',
+        videoAsset: 'assets/videos/idatet/T-18.mp4',
+        options: options,
+        weights: weights),
+    Question(
+        questionText: '19. SER PESSOA IGUAL',
+        videoAsset: 'assets/videos/idatet/T-19.mp4',
+        options: options,
+        weights: reverseWeights),
+  Question(
+        questionText: '20. PERTUBADO PENSAR PROBLEMAS AGORA',
+        videoAsset: 'assets/videos/idatet/T-20.mp4',
+        options: options,
+        weights: weights),
   ];
 
   void _nextPage() {
