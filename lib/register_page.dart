@@ -15,7 +15,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFFFFF), // Cor azul atualizada
+      backgroundColor: const Color(0xFFFFFFFF), // Cor de fundo branca
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -45,10 +45,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 // Campo de Email
                 const TextField(
                   decoration: InputDecoration(
-                    labelText: 'Email *',
-                    hintText: 'usuario@gmail.com',
-                    fillColor: Colors.black,
-                    filled: true,
+                    labelText: 'Usuário / Email',
+                    hintText: 'Digite o seu email',
+                    prefixIcon: Icon(Icons.email, color: Colors.blue),
                     border: OutlineInputBorder(),
                   ),
                 ),
@@ -59,7 +58,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   decoration: const InputDecoration(
                     labelText: 'Nome / User *',
                     hintText: 'Digite seu nome ou usuário',
-                    fillColor: Colors.black,
+                    prefixIcon: Icon(Icons.person, color: Colors.blue), // Ícone de usuário azul
+                    fillColor: Colors.white,
                     filled: true,
                     border: OutlineInputBorder(),
                   ),
@@ -68,10 +68,28 @@ class _RegisterPageState extends State<RegisterPage> {
                 // Tipo de usuário
                 const Text(
                   'Tipo de usuário *',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.black),
                 ),
                 Row(
                   children: [
+                    Expanded(
+                      child: ListTile(
+                        title: const Text(
+                          'Usuário',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        leading: Radio<SingingCharacter>(
+                          value: SingingCharacter.usuario,
+                          groupValue: _character,
+                          onChanged: (SingingCharacter? value) {
+                            setState(() {
+                              _character = value;
+                            });
+                          },
+                          fillColor: MaterialStateProperty.all(Colors.blue),
+                        ),
+                      ),
+                    ),
                     Expanded(
                       child: ListTile(
                         title: const Text(
@@ -86,25 +104,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               _character = value;
                             });
                           },
-                          fillColor: MaterialStateProperty.all(Colors.white),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: ListTile(
-                        title: const Text(
-                          'Usuário',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        leading: Radio<SingingCharacter>(
-                          value: SingingCharacter.usuario,
-                          groupValue: _character,
-                          onChanged: (SingingCharacter? value) {
-                            setState(() {
-                              _character = value;
-                            });
-                          },
-                          fillColor: MaterialStateProperty.all(Colors.white),
+                          fillColor: MaterialStateProperty.all(Colors.blue),
                         ),
                       ),
                     ),
@@ -115,15 +115,25 @@ class _RegisterPageState extends State<RegisterPage> {
                 const TextField(
                   obscureText: true,
                   decoration: InputDecoration(
-                    labelText: 'Senha *',
-                    hintText: '******',
-                    fillColor: Colors.white,
-                    filled: true,
+                    labelText: 'Senha',
+                    hintText: 'Digite sua senha',
+                    prefixIcon: Icon(Icons.lock, color: Colors.blue),
                     border: OutlineInputBorder(),
                   ),
                 ),
                 const SizedBox(height: 20),
-                // Botão Criar Conta com fundo branco
+                // Campo de confirmação de Senha
+                const TextField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: 'Digite novamente sua senha',
+                    hintText: 'Digite novamente sua senha',
+                    prefixIcon: Icon(Icons.lock, color: Colors.blue),
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                // Botão Criar Conta com fundo azul
                 ElevatedButton(
                   onPressed: () {
                     // Navega para a tela de sucesso, passando o nome/usuário
