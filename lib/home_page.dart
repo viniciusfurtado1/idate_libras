@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     const Text(
                       'IDATE-T',
                       style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -89,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     const Text(
                       'IDATE-E',
                       style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -106,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
           } else if (_character == SingingCharacter.idatee) {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const IdateEInstrucoes()));
-          } 
+          }
         },
         shape: const CircleBorder(),
         backgroundColor: Theme.of(context).colorScheme.primary,
