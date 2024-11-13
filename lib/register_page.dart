@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'success_page.dart';
+import 'welcome_page.dart'; // Certifique-se de que esta importação está correta
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -32,6 +33,23 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFFFFFFF),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF123068),
+        title: const Text(
+          "Cadastro",
+          style: TextStyle(color: Colors.white), // Define o texto do título como branco
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          color: Colors.white, // Define a cor do ícone como branco
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const WelcomePage()),
+            );
+          },
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -41,7 +59,7 @@ class _RegisterPageState extends State<RegisterPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const SizedBox(height: 40.0),
+                  const SizedBox(height: 20.0), // Ajuste a altura para posicionar "Idate Libras" mais acima
                   const Text(
                     'Idate Libras',
                     style: TextStyle(
@@ -49,6 +67,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
+                    textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 10),
                   const Text(
@@ -57,6 +76,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       fontSize: 16,
                       color: Colors.black,
                     ),
+                    textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 30),
                   // Campo de Email
@@ -120,7 +140,8 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                         ),
                       ),
-                      Expanded(
+                      SizedBox(
+                        width: 200, // Define largura para ajustar o espaçamento
                         child: ListTile(
                           title: const Text(
                             'Profissional de saúde',
