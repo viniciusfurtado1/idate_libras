@@ -9,159 +9,206 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
   SingingCharacter? _character = SingingCharacter.usuario;
-  final TextEditingController _nameController = TextEditingController(); // Controlador para o nome/usuário
+  final _formKey = GlobalKey<FormState>();
+
+  void _submitForm() {
+    if (_formKey.currentState?.validate() ?? false) {
+      // Navega para a tela de sucesso se o formulário for válido
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SuccessPage(userName: _nameController.text),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFFFFF), // Cor de fundo branca
+      backgroundColor: const Color(0xFFFFFFFF),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(24.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SizedBox(height: 40.0),
-                // Logo e Título
-                const Text(
-                  'Idate Libras',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                const Text(
-                  'Por favor, preencha abaixo para continuar',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black,
-                  ),
-                ),
-                const SizedBox(height: 30),
-                // Campo de Email
-                const TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Usuário / Email',
-                    hintText: 'Digite o seu email',
-                    prefixIcon: Icon(Icons.email, color: Colors.blue),
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                // Campo de Nome de usuário
-                TextField(
-                  controller: _nameController, // Associando o controlador de nome/usuário
-                  decoration: const InputDecoration(
-                    labelText: 'Nome / User *',
-                    hintText: 'Digite seu nome ou usuário',
-                    prefixIcon: Icon(Icons.person, color: Colors.blue), // Ícone de usuário azul
-                    fillColor: Colors.white,
-                    filled: true,
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                // Tipo de usuário
-                const Text(
-                  'Tipo de usuário *',
-                  style: TextStyle(color: Colors.black),
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: ListTile(
-                        title: const Text(
-                          'Usuário',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        leading: Radio<SingingCharacter>(
-                          value: SingingCharacter.usuario,
-                          groupValue: _character,
-                          onChanged: (SingingCharacter? value) {
-                            setState(() {
-                              _character = value;
-                            });
-                          },
-                          fillColor: MaterialStateProperty.all(Colors.blue),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: ListTile(
-                        title: const Text(
-                          'Profissional de saúde',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        leading: Radio<SingingCharacter>(
-                          value: SingingCharacter.profissional,
-                          groupValue: _character,
-                          onChanged: (SingingCharacter? value) {
-                            setState(() {
-                              _character = value;
-                            });
-                          },
-                          fillColor: MaterialStateProperty.all(Colors.blue),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                // Campo de Senha
-                const TextField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    labelText: 'Senha',
-                    hintText: 'Digite sua senha',
-                    prefixIcon: Icon(Icons.lock, color: Colors.blue),
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                // Campo de confirmação de Senha
-                const TextField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    labelText: 'Digite novamente sua senha',
-                    hintText: 'Digite novamente sua senha',
-                    prefixIcon: Icon(Icons.lock, color: Colors.blue),
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                // Botão Criar Conta com fundo azul
-                ElevatedButton(
-                  onPressed: () {
-                    // Navega para a tela de sucesso, passando o nome/usuário
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SuccessPage(
-                          userName: _nameController.text, // Passando o nome para a tela de sucesso
-                        ),
-                      ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF123068), // Azul solicitado
-                    padding: const EdgeInsets.symmetric(vertical: 16.0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  child: const Text(
-                    'Criar Conta',
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(height: 40.0),
+                  const Text(
+                    'Idate Libras',
                     style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white, // Cor do texto
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
                     ),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 10),
+                  const Text(
+                    'Por favor, preencha abaixo para continuar',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black,
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                  // Campo de Email
+                  TextFormField(
+                    controller: _emailController,
+                    decoration: const InputDecoration(
+                      labelText: 'Usuário / Email',
+                      hintText: 'Digite o seu email',
+                      prefixIcon: Icon(Icons.email, color: Colors.blue),
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor, insira um email';
+                      } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                        return 'Insira um email válido';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  // Campo de Nome de usuário
+                  TextFormField(
+                    controller: _nameController,
+                    decoration: const InputDecoration(
+                      labelText: 'Nome / User *',
+                      hintText: 'Digite seu nome ou usuário',
+                      prefixIcon: Icon(Icons.person, color: Colors.blue),
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor, insira um nome ou usuário';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  // Tipo de usuário
+                  const Text(
+                    'Tipo de usuário *',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ListTile(
+                          title: const Text(
+                            'Usuário',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          leading: Radio<SingingCharacter>(
+                            value: SingingCharacter.usuario,
+                            groupValue: _character,
+                            onChanged: (SingingCharacter? value) {
+                              setState(() {
+                                _character = value;
+                              });
+                            },
+                            fillColor: MaterialStateProperty.all(Colors.blue),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: ListTile(
+                          title: const Text(
+                            'Profissional de saúde',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          leading: Radio<SingingCharacter>(
+                            value: SingingCharacter.profissional,
+                            groupValue: _character,
+                            onChanged: (SingingCharacter? value) {
+                              setState(() {
+                                _character = value;
+                              });
+                            },
+                            fillColor: MaterialStateProperty.all(Colors.blue),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  if (_character == null) // Mensagem de erro caso o tipo de usuário não esteja selecionado
+                    const Text(
+                      'Por favor, selecione um tipo de usuário',
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  const SizedBox(height: 20),
+                  // Campo de Senha
+                  TextFormField(
+                    controller: _passwordController,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      labelText: 'Senha',
+                      hintText: 'Digite sua senha',
+                      prefixIcon: Icon(Icons.lock, color: Colors.blue),
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor, insira uma senha';
+                      } else if (value.length < 6) {
+                        return 'A senha deve ter no mínimo 6 caracteres';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  // Campo de confirmação de Senha
+                  TextFormField(
+                    controller: _confirmPasswordController,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      labelText: 'Digite novamente sua senha',
+                      hintText: 'Digite novamente sua senha',
+                      prefixIcon: Icon(Icons.lock, color: Colors.blue),
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor, confirme sua senha';
+                      } else if (value != _passwordController.text) {
+                        return 'As senhas não correspondem';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  // Botão Criar Conta
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_character == null) {
+                        setState(() {}); // Força a atualização da tela para exibir a mensagem de erro
+                      } else {
+                        _submitForm(); // Envia o formulário se estiver tudo correto
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF123068),
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: const Text(
+                      'Criar Conta',
+                      style: TextStyle(fontSize: 18, color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
