@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'success_page.dart';
-import 'welcome_page.dart'; // Certifique-se de que esta importação está correta
+import 'welcome_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -17,15 +18,41 @@ class _RegisterPageState extends State<RegisterPage> {
   SingingCharacter? _character = SingingCharacter.usuario;
   final _formKey = GlobalKey<FormState>();
 
-  void _submitForm() {
+  Future<void> _submitForm() async {
     if (_formKey.currentState?.validate() ?? false) {
-      // Navega para a tela de sucesso se o formulário for válido
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => SuccessPage(userName: _nameController.text),
-        ),
-      );
+      try {
+        // Criar usuário no Firebase Authentication
+        final UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+        );
+
+        // Atualizar o nome do usuário
+        await userCredential.user?.updateDisplayName(_nameController.text.trim());
+
+        // Navegar para a página de sucesso
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SuccessPage(userName: _nameController.text),
+          ),
+        );
+      } on FirebaseAuthException catch (e) {
+        // Exibir erros específicos do Firebase
+        String errorMessage;
+        if (e.code == 'email-already-in-use') {
+          errorMessage = 'Este email já está em uso.';
+        } else if (e.code == 'weak-password') {
+          errorMessage = 'A senha é muito fraca.';
+        } else {
+          errorMessage = 'Erro: ${e.message}';
+        }
+
+        // Exibir erro em um SnackBar
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(errorMessage)),
+        );
+      }
     }
   }
 
@@ -37,11 +64,11 @@ class _RegisterPageState extends State<RegisterPage> {
         backgroundColor: const Color(0xFF123068),
         title: const Text(
           "Cadastro",
-          style: TextStyle(color: Colors.white), // Define o texto do título como branco
+          style: TextStyle(color: Colors.white),
         ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          color: Colors.white, // Define a cor do ícone como branco
+          color: Colors.white,
           onPressed: () {
             Navigator.pushReplacement(
               context,
@@ -59,7 +86,7 @@ class _RegisterPageState extends State<RegisterPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const SizedBox(height: 20.0), // Ajuste a altura para posicionar "Idate Libras" mais acima
+                  const SizedBox(height: 20.0),
                   const Text(
                     'Idate Libras',
                     style: TextStyle(
@@ -115,58 +142,6 @@ class _RegisterPageState extends State<RegisterPage> {
                     },
                   ),
                   const SizedBox(height: 20),
-                  // Tipo de usuário
-                  const Text(
-                    'Tipo de usuário *',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: ListTile(
-                          title: const Text(
-                            'Usuário',
-                            style: TextStyle(color: Colors.black),
-                          ),
-                          leading: Radio<SingingCharacter>(
-                            value: SingingCharacter.usuario,
-                            groupValue: _character,
-                            onChanged: (SingingCharacter? value) {
-                              setState(() {
-                                _character = value;
-                              });
-                            },
-                            fillColor: MaterialStateProperty.all(Colors.blue),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 200, // Define largura para ajustar o espaçamento
-                        child: ListTile(
-                          title: const Text(
-                            'Profissional de saúde',
-                            style: TextStyle(color: Colors.black),
-                          ),
-                          leading: Radio<SingingCharacter>(
-                            value: SingingCharacter.profissional,
-                            groupValue: _character,
-                            onChanged: (SingingCharacter? value) {
-                              setState(() {
-                                _character = value;
-                              });
-                            },
-                            fillColor: MaterialStateProperty.all(Colors.blue),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  if (_character == null) // Mensagem de erro caso o tipo de usuário não esteja selecionado
-                    const Text(
-                      'Por favor, selecione um tipo de usuário',
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  const SizedBox(height: 20),
                   // Campo de Senha
                   TextFormField(
                     controller: _passwordController,
@@ -209,13 +184,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   const SizedBox(height: 20),
                   // Botão Criar Conta
                   ElevatedButton(
-                    onPressed: () {
-                      if (_character == null) {
-                        setState(() {}); // Força a atualização da tela para exibir a mensagem de erro
-                      } else {
-                        _submitForm(); // Envia o formulário se estiver tudo correto
-                      }
-                    },
+                    onPressed: _submitForm,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF123068),
                       padding: const EdgeInsets.symmetric(vertical: 16.0),

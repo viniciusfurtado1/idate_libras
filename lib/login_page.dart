@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'register_page.dart';
 import 'dashboard_page.dart';
 
@@ -11,29 +12,50 @@ class LoginPage extends StatelessWidget {
     final TextEditingController _emailController = TextEditingController();
     final TextEditingController _passwordController = TextEditingController();
 
-    void _login() {
+    Future<void> _login() async {
       if (_formKey.currentState?.validate() ?? false) {
-        // Navega para a tela de dashboard se o formulário for válido
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DashboardPage(userName: _emailController.text),
-          ),
-        );
+        try {
+          // Autenticar com Firebase
+          final UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+            email: _emailController.text.trim(),
+            password: _passwordController.text.trim(),
+          );
+
+          // Navega para a tela de dashboard ao fazer login com sucesso
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DashboardPage(userName: userCredential.user?.email ?? 'Usuário'),
+            ),
+          );
+        } on FirebaseAuthException catch (e) {
+          // Mostrar mensagens de erro específicas
+          String errorMessage;
+          if (e.code == 'user-not-found') {
+            errorMessage = 'Usuário não encontrado.';
+          } else if (e.code == 'wrong-password') {
+            errorMessage = 'Senha incorreta.';
+          } else {
+            errorMessage = 'Erro ao fazer login: ${e.message}';
+          }
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(errorMessage)),
+          );
+        }
       }
     }
 
     return Scaffold(
-      backgroundColor: const Color(0xFF123068), // Cor azul
+      backgroundColor: const Color(0xFF123068),
       body: SafeArea(
         child: Column(
           children: [
             const SizedBox(height: 40.0),
-            // Logo e Título
             Column(
               children: [
                 Image.asset(
-                  'assets/images/logo.png', // Adicione o caminho correto da imagem
+                  'assets/images/logo.png',
                   height: 100,
                 ),
                 const SizedBox(height: 20),
