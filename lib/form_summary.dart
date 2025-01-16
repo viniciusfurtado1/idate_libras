@@ -18,27 +18,15 @@ class FormSummaryIdate extends StatelessWidget {
   });
 
   /// Método responsável por salvar os dados no Firestore.
-  Future<void> saveScoreToFirestore(BuildContext context) async {
+  Future<void> saveScoreToFirestore(BuildContext context, User user) async {
     try {
-      // Obter o usuário autenticado
-      final user = FirebaseAuth.instance.currentUser;
-
-      if (user == null) {
-        // Mostrar mensagem de erro se o usuário não estiver autenticado
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Usuário não autenticado! Faça login para salvar.'),
-          ),
-        );
-        return;
-      }
-
       final firestore = FirebaseFirestore.instance;
 
       // Dados a serem salvos no Firestore
       final data = {
         'userId': user.uid,
         'email': user.email,
+        'name': user.displayName ?? 'Nome não fornecido', // Aqui você pega o nome do usuário
         'idateType': idateType,
         'score': score,
         'timestamp': FieldValue.serverTimestamp(),
@@ -69,11 +57,6 @@ class FormSummaryIdate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Chamar o salvamento ao exibir a página
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      saveScoreToFirestore(context);
-    });
-
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(
@@ -88,103 +71,126 @@ class FormSummaryIdate extends StatelessWidget {
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
-      body: Container(
-        color: const Color(0xFFF6F6F6),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'RESULTADOS',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'IDATE-$idateType',
-                        style: const TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        'SCORE: $score',
-                        style: const TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: questions.length,
-                itemBuilder: (context, index) {
-                  final question = questions[index];
-                  final selectedAnswer = selectedAnswers[index];
+      body: FutureBuilder<User?>(
+        future: FirebaseAuth.instance.authStateChanges().first,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
 
-                  return Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Center(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+          final user = snapshot.data;
+
+          if (user == null) {
+            // Mostrar mensagem de erro se o usuário não estiver autenticado
+            return const Center(
+              child: Text('Usuário não autenticado! Faça login para continuar.'),
+            );
+          }
+
+          // Chama o salvamento no Firestore logo após a página ser carregada
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            saveScoreToFirestore(context, user);
+          });
+
+          return Container(
+            color: const Color(0xFFF6F6F6),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'RESULTADOS',
+                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const SizedBox(height: 5),
                           Text(
-                            question.questionText,
+                            'IDATE-$idateType',
                             style: const TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
+                                fontSize: 24, fontWeight: FontWeight.bold),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: List<Widget>.generate(
-                              question.options.length,
-                                  (i) {
-                                return Column(
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                          color: Colors.grey,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius: BorderRadius.circular(5.0),
-                                      ),
-                                      child: Text(
-                                        question.options[i],
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ),
-                                    Transform.scale(
-                                      scale: 1.5,
-                                      child: Radio<int>(
-                                        value: i,
-                                        groupValue: selectedAnswer,
-                                        onChanged: null,
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
+                          Text(
+                            'SCORE: $score',
+                            style: const TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
-                    ),
-                  );
-                },
-              ),
-            )
-          ],
-        ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: questions.length,
+                    itemBuilder: (context, index) {
+                      final question = questions[index];
+                      final selectedAnswer = selectedAnswers[index];
+
+                      return Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Center(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 5),
+                              Text(
+                                question.questionText,
+                                style: const TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: List<Widget>.generate(
+                                  question.options.length,
+                                      (i) {
+                                    return Column(
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: Colors.grey,
+                                              width: 1.0,
+                                            ),
+                                            borderRadius: BorderRadius.circular(5.0),
+                                          ),
+                                          child: Text(
+                                            question.options[i],
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ),
+                                        Transform.scale(
+                                          scale: 1.5,
+                                          child: Radio<int>(
+                                            value: i,
+                                            groupValue: selectedAnswer,
+                                            onChanged: null,
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
