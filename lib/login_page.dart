@@ -26,7 +26,10 @@ class LoginPage extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => DashboardPage(userName: userCredential.user?.email ?? 'Usuário'),
+              builder: (context) => DashboardPage(
+                userName: userCredential.user?.email ?? 'Usuário',
+                fromLogin: true,
+              ),
             ),
           );
         } on FirebaseAuthException catch (e) {
@@ -156,7 +159,9 @@ class LoginPage extends StatelessWidget {
                           onTap: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const RegisterPage()),
+                              MaterialPageRoute(
+                                builder: (context) => const RegisterPage(),
+                              ),
                             );
                           },
                           child: const Text(

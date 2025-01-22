@@ -2,11 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:idate_libras/idate_e/idate_e_intrucoes.dart';
 import 'package:idate_libras/idate_t/idate_t_intrucoes.dart';
 import 'package:idate_libras/result_page.dart';
+import 'package:idate_libras/login_page.dart'; // Certifique-se de ter uma página de login ou boas-vindas
 
 class DashboardPage extends StatefulWidget {
-  final String userName; // Nome/Usuário passado da tela de sucesso
+  final String? userName; // Nome/Usuário opcional
+  final bool fromLogin; // Indica se veio da tela de login
 
-  const DashboardPage({super.key, required this.userName});
+  const DashboardPage({
+    super.key,
+    this.userName = "Usuário",
+    this.fromLogin = false,
+  });
 
   @override
   State<DashboardPage> createState() => _DashboardPageState();
@@ -25,41 +31,42 @@ class _DashboardPageState extends State<DashboardPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Cabeçalho com saudação personalizada
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      // Saudação com o nome/usuário
-                      Text(
-                        'Olá, ${widget.userName}!', // Exibe o nome passado
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
+                  Text(
+                    widget.fromLogin
+                        ? 'Bem-vindo(a)!'
+                        : 'Olá, ${widget.userName}!',
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  // Ícone para acessar o histórico
                   IconButton(
                     icon: const Icon(Icons.history, size: 28),
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const ResultsPage()),
+                        MaterialPageRoute(
+                          builder: (context) => const ResultsPage(),
+                        ),
                       );
                     },
                   ),
                 ],
               ),
               const SizedBox(height: 40),
-              // Botão para voltar
               IconButton(
                 icon: const Icon(Icons.arrow_back),
                 onPressed: () {
-                  // Volta para a tela anterior
-                  Navigator.pop(context);
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginPage(),
+                    ),
+                        (route) => false,
+                  );
                 },
               ),
               const Text(
@@ -70,7 +77,6 @@ class _DashboardPageState extends State<DashboardPage> {
                 ),
               ),
               const SizedBox(height: 20),
-              // Opções de seleção (IDATE-T e IDATE-E)
               Column(
                 children: [
                   RadioListTile<SingingCharacter>(
@@ -85,12 +91,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         _character = value;
                       });
                     },
-                    activeColor: Colors.blue, // Cor ativa
-                    tileColor: _character == SingingCharacter.idatet
-                        ? Colors.blue.shade100
-                        : null, // Cor de fundo ao selecionar
                   ),
-                  const SizedBox(height: 10),
                   RadioListTile<SingingCharacter>(
                     title: const Text(
                       'IDATE-E',
@@ -103,35 +104,37 @@ class _DashboardPageState extends State<DashboardPage> {
                         _character = value;
                       });
                     },
-                    activeColor: Colors.blue, // Cor ativa
-                    tileColor: _character == SingingCharacter.idatee
-                        ? Colors.blue.shade100
-                        : null, // Cor de fundo ao selecionar
                   ),
                 ],
               ),
               const Spacer(),
-              // Botão para continuar
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {
-                    // Lógica para continuar
-                    if (_character == SingingCharacter.idatet) {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const IdateTInstrucoes()));
-                    } else if (_character == SingingCharacter.idatee) {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const IdateEInstrucoes()));
-                    }
-                  },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF123068), // Cor azul
+                    backgroundColor: const Color(0xFF123068),
                     padding: const EdgeInsets.symmetric(vertical: 16.0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
+                  onPressed: () {
+                    if (_character == SingingCharacter.idatet) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const IdateTInstrucoes(),
+                        ),
+                      );
+                    } else if (_character == SingingCharacter.idatee) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const IdateEInstrucoes(),
+                        ),
+                      );
+                    }
+                  },
                   child: const Text(
                     'Continuar',
                     style: TextStyle(
