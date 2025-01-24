@@ -18,7 +18,7 @@ class WelcomePage extends StatelessWidget {
             Column(
               children: [
                 Image.asset(
-                  'assets/images/logo.png', // Verifique se o caminho está correto
+                  'assets/images/logo.jpg', // Verifique se o caminho está correto
                   height: 150,
                   errorBuilder: (context, error, stackTrace) {
                     return const Icon(

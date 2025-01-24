@@ -59,13 +59,16 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFFFFF),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF123068),
-        title: const Text(
-          "Cadastro",
-          style: TextStyle(color: Colors.white),
-        ),
+          iconTheme: const IconThemeData(
+            color: Colors.white,
+          ),
+          title: const Text(
+            'IDATE/Libras',
+            style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white),
+          ),
+          backgroundColor: const Color(0xFF123068),
+
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           color: Colors.white,

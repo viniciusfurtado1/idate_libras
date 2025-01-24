@@ -41,7 +41,6 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color(0xFFF6F6F6),
       child: Padding(
         padding: const EdgeInsets.all(0.0),
         child: Column(
@@ -73,7 +72,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                         padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                         height: 50,
                         decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primary,
+                          color: Color(0xFF123068),
                           border: Border.all(color: Colors.black, width: 1.0),
                           borderRadius: BorderRadius.circular(25.0),
                         ),

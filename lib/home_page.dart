@@ -17,7 +17,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: const Color(0xFF123068),
         title: const Text(
           "IDATE/Libras",
           style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white),
@@ -37,7 +37,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Container(
-          color: const Color(0xFFF6F6F6),
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -109,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
           }
         },
         shape: const CircleBorder(),
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: const Color(0xFF123068),
         child: const Icon(
           Icons.arrow_forward,
           color: Colors.white,

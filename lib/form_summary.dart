@@ -58,19 +58,16 @@ class FormSummaryIdate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+        appBar: AppBar(
         iconTheme: const IconThemeData(
-          color: Colors.white,
+        color: Colors.white,
+    ),
+    title: const Text(
+    'IDATE/Libras',
+    style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white),
+    ),
+    backgroundColor: const Color(0xFF123068),
         ),
-        title: Text(
-          'IDATE-$idateType/Libras',
-          style: const TextStyle(
-            fontWeight: FontWeight.normal,
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-      ),
       body: FutureBuilder<User?>(
         future: FirebaseAuth.instance.authStateChanges().first,
         builder: (context, snapshot) {
@@ -93,7 +90,6 @@ class FormSummaryIdate extends StatelessWidget {
           });
 
           return Container(
-            color: const Color(0xFFF6F6F6),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -161,7 +157,7 @@ class FormSummaryIdate extends StatelessWidget {
                                           child: Text(
                                             question.options[i],
                                             style: const TextStyle(
-                                              fontSize: 14,
+                                              fontSize: 12,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.black,
                                             ),

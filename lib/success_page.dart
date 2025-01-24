@@ -9,64 +9,81 @@ class SuccessPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // Fundo branco
+      appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
+        title: const Text(
+          'IDATE/Libras',
+          style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white),
+        ),
+        backgroundColor: const Color(0xFF123068),
+      ),
       body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Stack(
           children: [
-            // Mensagem de sucesso
-            const Text(
-              'Cadastro realizado com sucesso!',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.black, // Cor do texto
-              ),
-            ),
-            const SizedBox(height: 40),
-            // Ícone de sucesso
-            Container(
-              height: 150,
-              width: 150,
-              decoration: const BoxDecoration(
-                color: Colors.green, // Fundo verde
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(
-                Icons.check,
-                size: 100,
-                color: Colors.white, // Cor do ícone de check
-              ),
-            ),
-            const SizedBox(height: 40),
-            // Botão "Acessar conta"
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DashboardPage(
-                          userName: userName, // Passa o nome/usuário para a Dashboard
-                        ),
-                      ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF123068), // Azul solicitado
-                    padding: const EdgeInsets.symmetric(vertical: 16.0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+            // Centraliza a mensagem e a figura no meio da tela
+            Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
+                    'Cadastro realizado com sucesso!',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black, // Cor do texto
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 40), // Espaço entre o texto e a figura
+                  Container(
+                    height: 150,
+                    width: 150,
+                    decoration: const BoxDecoration(
+                      color: Colors.green, // Fundo verde
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.check,
+                      size: 100,
+                      color: Colors.white, // Cor do ícone de check
                     ),
                   ),
-                  child: const Text(
-                    'Acessar conta',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white, // Cor do texto
+                ],
+              ),
+            ),
+            // Botão fixado na parte inferior
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DashboardPage(
+                            userName: userName, // Passa o nome/usuário para a Dashboard
+                          ),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF123068), // Azul solicitado
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: const Text(
+                      'Acessar conta',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white, // Cor do texto
+                      ),
                     ),
                   ),
                 ),

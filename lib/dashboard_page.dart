@@ -24,7 +24,30 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
+        title: const Text(
+          'IDATE/Libras',
+          style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white),
+        ),
+        backgroundColor: const Color(0xFF123068),
+
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.history),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ResultsPage(),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -44,31 +67,20 @@ class _DashboardPageState extends State<DashboardPage> {
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.history, size: 28),
+                    icon: const Icon(Icons.logout),
                     onPressed: () {
-                      Navigator.push(
+                      Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const ResultsPage(),
+                          builder: (context) => const LoginPage(),
                         ),
+                            (route) => false,
                       );
                     },
                   ),
                 ],
               ),
               const SizedBox(height: 40),
-              IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LoginPage(),
-                    ),
-                        (route) => false,
-                  );
-                },
-              ),
               const Text(
                 'SELECIONE O FORMULÁRIO:',
                 style: TextStyle(
@@ -91,7 +103,12 @@ class _DashboardPageState extends State<DashboardPage> {
                         _character = value;
                       });
                     },
+                    activeColor: Colors.blue,
+                    tileColor: _character == SingingCharacter.idatet
+                        ? Colors.blue.shade100
+                        : null,
                   ),
+                  const SizedBox(height: 10),
                   RadioListTile<SingingCharacter>(
                     title: const Text(
                       'IDATE-E',
@@ -104,6 +121,10 @@ class _DashboardPageState extends State<DashboardPage> {
                         _character = value;
                       });
                     },
+                    activeColor: Colors.blue,
+                    tileColor: _character == SingingCharacter.idatee
+                        ? Colors.blue.shade100
+                        : null,
                   ),
                 ],
               ),
@@ -111,6 +132,17 @@ class _DashboardPageState extends State<DashboardPage> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
+                  onPressed: () {
+                    if (_character == SingingCharacter.idatet) {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const IdateTInstrucoes(),
+                      ));
+                    } else if (_character == SingingCharacter.idatee) {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const IdateEInstrucoes(),
+                      ));
+                    }
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF123068),
                     padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -118,23 +150,6 @@ class _DashboardPageState extends State<DashboardPage> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  onPressed: () {
-                    if (_character == SingingCharacter.idatet) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const IdateTInstrucoes(),
-                        ),
-                      );
-                    } else if (_character == SingingCharacter.idatee) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const IdateEInstrucoes(),
-                        ),
-                      );
-                    }
-                  },
                   child: const Text(
                     'Continuar',
                     style: TextStyle(

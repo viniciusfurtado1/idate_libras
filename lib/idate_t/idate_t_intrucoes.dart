@@ -34,7 +34,7 @@ class _IdateTInstrucoesState extends State<IdateTInstrucoes> {
         iconTheme: const IconThemeData(
           color: Colors.white, // Defina a cor desejada aqui
         ),
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: const Color(0xFF123068),
         title: const Text(
           "IDATE-T/Libras",
           style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white),
@@ -42,7 +42,6 @@ class _IdateTInstrucoesState extends State<IdateTInstrucoes> {
       ),
       body: Center(
         child: Container(
-          color: const Color(0xFFF6F6F6),
           child: Padding(
             padding: const EdgeInsets.only(top: 16.0),
             child: Column(
@@ -71,7 +70,7 @@ class _IdateTInstrucoesState extends State<IdateTInstrucoes> {
               builder: (context) => const QuestionPageIdateT()));
         },
         shape: const CircleBorder(),
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: const Color(0xFF123068),
         child: const Icon(
           Icons.arrow_forward,
           color: Colors.white,

@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color.fromARGB(255, 0, 76, 147),
+          seedColor: const Color(0xFF123068), // Cor base alterada
         ),
       ),
       home: const WelcomePage(), // Início da navegação com a WelcomePage
