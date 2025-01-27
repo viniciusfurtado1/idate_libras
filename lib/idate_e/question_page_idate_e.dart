@@ -244,16 +244,16 @@ class _QuestionPageIdateT extends State<QuestionPageIdateE> {
               child: const Icon(Icons.check, size: 32.0),
             )
           : FloatingActionButton(
-        onPressed: _isNextButtonEnabled() ? _nextPage : null,
-        shape: const CircleBorder(),
-        backgroundColor: _isNextButtonEnabled()
-            ? const Color(0xFF123068) // Cor ajustada
-            : Colors.grey,
-        child: const Icon(
-          Icons.arrow_forward,
-          color: Colors.white,
-        ),
-      ),
+              onPressed: _isNextButtonEnabled() ? _nextPage : null,
+              shape: const CircleBorder(),
+              backgroundColor: _isNextButtonEnabled()
+                  ? const Color(0xFF123068) // Cor ajustada
+                  : Colors.grey,
+              child: const Icon(
+                Icons.arrow_forward,
+                color: Colors.white,
+              ),
+            ),
     );
   }
 }

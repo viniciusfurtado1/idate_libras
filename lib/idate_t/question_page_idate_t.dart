@@ -242,6 +242,7 @@ class _QuestionPageIdateT extends State<QuestionPageIdateT> {
         backgroundColor:
         _isNextButtonEnabled() ? Colors.green : Colors.green.shade300,
         child: const Icon(Icons.check, size: 32.0),
+
       )
           : FloatingActionButton(
         onPressed: _isNextButtonEnabled() ? _nextPage : null,
