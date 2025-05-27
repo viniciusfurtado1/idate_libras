@@ -40,27 +40,33 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(height: 16),
-          Text(
-            widget.question.questionText,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 16),
-          Center(
-            child: AspectRatio(
-              aspectRatio: 16 / 9,
-              child: FlickVideoPlayer(flickManager: flickManager),
+      child: SingleChildScrollView( // Adicionado para evitar overflow
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(height: 16),
+            Text(
+              widget.question.questionText,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-          ),
-          const SizedBox(height: 32),
-          Expanded(
-            child: ListView.builder(
-              itemCount: widget.question.options.length,
-              itemBuilder: (context, i) {
+            const SizedBox(height: 16),
+            Center(
+              child: AspectRatio(
+                aspectRatio: 16 / 9,
+                child: FlickVideoPlayer(flickManager: flickManager),
+              ),
+            ),
+            const SizedBox(height: 32),
+
+            // Substituindo Expanded + ListView por Column com ...map()
+            Column(
+              children: widget.question.options
+                  .asMap()
+                  .entries
+                  .map((entry) {
+                int i = entry.key;
+                String option = entry.value;
                 return GestureDetector(
                   onTap: () => widget.onOptionSelected(i),
                   child: Container(
@@ -79,22 +85,26 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                           groupValue: widget.selectedAnswer,
                           onChanged: widget.onOptionSelected,
                         ),
-                        Text(
-                          '${i + 1}. ${widget.question.options[i]}',
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                        Flexible(
+                          child: Text(
+                            '${i + 1}. $option',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
                 );
-              },
+              }).toList(),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
+
+
 }

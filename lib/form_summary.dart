@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:idate_libras/question.dart';
 
+bool _jaEnviado = false;
+
 class FormSummaryIdate extends StatelessWidget {
   final List<Question> questions;
   final List<int?> selectedAnswers;
@@ -86,8 +88,12 @@ class FormSummaryIdate extends StatelessWidget {
 
           // Chama o salvamento no Firestore logo após a página ser carregada
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            saveScoreToFirestore(context, user);
+            if (!_jaEnviado) {
+              _jaEnviado = true;
+              saveScoreToFirestore(context, user);
+            }
           });
+
 
           return Container(
             child: Column(

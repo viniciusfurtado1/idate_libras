@@ -32,7 +32,7 @@ class _IdateTInstrucoesState extends State<IdateTInstrucoes> {
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(
-          color: Colors.white, // Defina a cor desejada aqui
+          color: Colors.white,
         ),
         backgroundColor: const Color(0xFF123068),
         title: const Text(
@@ -40,34 +40,32 @@ class _IdateTInstrucoesState extends State<IdateTInstrucoes> {
           style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white),
         ),
       ),
-      body: Center(
-        child: Container(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                //const SizedBox(height: 96),
-                const Text(
-                  "INSTRUÇÕES",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 16),
-                Center(
-                  child: AspectRatio(
-                    aspectRatio: 16 / 9,
-                    child: FlickVideoPlayer(flickManager: flickManager),
-                  ),
-                ),
-              ],
-            ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text(
+                "INSTRUÇÕES",
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 16),
+              AspectRatio(
+                aspectRatio: 16 / 9,
+                child: FlickVideoPlayer(flickManager: flickManager),
+              ),
+            ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) => const QuestionPageIdateT()));
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => const QuestionPageIdateT(),
+            ),
+          );
         },
         shape: const CircleBorder(),
         backgroundColor: const Color(0xFF123068),
@@ -78,4 +76,6 @@ class _IdateTInstrucoesState extends State<IdateTInstrucoes> {
       ),
     );
   }
+
 }
+

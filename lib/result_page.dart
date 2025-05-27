@@ -219,11 +219,48 @@ class ResultDetailPage extends StatelessWidget {
     List<int?> selectedAnswers =
     (result['selectedAnswers'] as List).cast<int?>();
 
-    return FormSummaryIdate(
-      idateType: result['idateType'],
-      questions: questions,
-      selectedAnswers: selectedAnswers,
-      score: result['score'] as int,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Detalhes do Resultado'),
+        backgroundColor: const Color(0xFF123068),
+        iconTheme: const IconThemeData(color: Colors.white),
+        titleTextStyle: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 18,
+        ),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: FormSummaryIdate(
+              idateType: result['idateType'],
+              questions: questions,
+              selectedAnswers: selectedAnswers,
+              score: result['score'] as int,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF123068),
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              onPressed: () => Navigator.pop(context),
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
+              label: const Text(
+                'Voltar',
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
+
