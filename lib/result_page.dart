@@ -9,7 +9,6 @@ class ResultsPage extends StatefulWidget {
   const ResultsPage({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _ResultsPageState createState() => _ResultsPageState();
 }
 
@@ -40,7 +39,7 @@ class _ResultsPageState extends State<ResultsPage> {
           return AlertDialog(
             title: const Text('AVISO'),
             content: const Text('Não há resultados para apagar.',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
             actions: <Widget>[
               TextButton(
                 child: const Text('OK'),
@@ -60,12 +59,12 @@ class _ResultsPageState extends State<ResultsPage> {
             title: const Text('ATENÇÃO'),
             content: const Text(
                 'Você realmente deseja apagar todos os resultados?',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
             actions: <Widget>[
               TextButton(
                 child: const Text('Cancelar',
                     style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -73,7 +72,7 @@ class _ResultsPageState extends State<ResultsPage> {
               TextButton(
                 child: const Text('Confirmar',
                     style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
                 onPressed: () {
                   _clearResults();
                   Navigator.of(context).pop();
@@ -91,23 +90,22 @@ class _ResultsPageState extends State<ResultsPage> {
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(
-          color: Colors.white, // Defina a cor desejada aqui
+          color: Colors.white,
         ),
         title: const Text(
           'IDATE/Libras',
           style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white),
         ),
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: const Color(0xFF123068),
         actions: [
           IconButton(
             color: Colors.white,
-            icon: const Icon(Icons.delete), // Ícone para o botão
+            icon: const Icon(Icons.delete),
             onPressed: () => _confirmDelete(context),
           ),
         ],
       ),
       body: Container(
-        color: const Color(0xFFF6F6F6),
         child: FutureBuilder<List<Map<String, dynamic>>>(
           future: _loadResults(),
           builder: (context, snapshot) {
@@ -115,12 +113,13 @@ class _ResultsPageState extends State<ResultsPage> {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
               return const Center(
-                  child: Text('Erro ao carregar os resultados.'));
+                  child: Text('Erro ao carregar os resultados.',
+                      style: TextStyle(fontSize: 14)));
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
               return const Center(
                   child: Text('Nenhum resultado encontrado.',
                       style: TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.bold)));
+                          fontSize: 14, fontWeight: FontWeight.bold)));
             }
 
             List<Map<String, dynamic>> results = snapshot.data!;
@@ -133,7 +132,7 @@ class _ResultsPageState extends State<ResultsPage> {
                   child: Text(
                     'RESULTADOS:',
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 20, // Fonte reduzida
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -145,13 +144,13 @@ class _ResultsPageState extends State<ResultsPage> {
                       var result = results[index];
                       var date = DateTime.parse(result['date']);
                       String twoDigitsMinutes =
-                          date.minute.toString().padLeft(2, '0');
+                      date.minute.toString().padLeft(2, '0');
                       var formattedDate =
                           '${date.day}/${date.month}/${date.year} às ${date.hour}:$twoDigitsMinutes';
                       return Container(
                         margin: const EdgeInsets.all(8.0),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.5), // Cor de fundo
+                          color: Colors.white.withOpacity(0.5),
                           border: Border.all(
                             color: Colors.black,
                             width: 1.0,
@@ -162,8 +161,7 @@ class _ResultsPageState extends State<ResultsPage> {
                               color: Colors.grey.withOpacity(0.5),
                               spreadRadius: 1,
                               blurRadius: 1,
-                              offset: const Offset(
-                                  2, 2), // Alterne a posição da sombra
+                              offset: const Offset(2, 2),
                             ),
                           ],
                         ),
@@ -182,14 +180,14 @@ class _ResultsPageState extends State<ResultsPage> {
                             title: Text(
                               'Resultado do IDATE-${result['idateType']} em $formattedDate',
                               style: const TextStyle(
-                                fontSize: 18,
+                                fontSize: 16, // Fonte reduzida
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             subtitle: Text(
                               'Score: ${result['score']}',
                               style: const TextStyle(
-                                fontSize: 16,
+                                fontSize: 14, // Fonte reduzida
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -219,13 +217,50 @@ class ResultDetailPage extends StatelessWidget {
         .map((q) => Question.fromJson(q as Map<String, dynamic>))
         .toList();
     List<int?> selectedAnswers =
-        (result['selectedAnswers'] as List).cast<int?>();
+    (result['selectedAnswers'] as List).cast<int?>();
 
-    return FormSummaryIdate(
-      idateType: result['idateType'],
-      questions: questions,
-      selectedAnswers: selectedAnswers,
-      score: result['score'] as int,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Detalhes do Resultado'),
+        backgroundColor: const Color(0xFF123068),
+        iconTheme: const IconThemeData(color: Colors.white),
+        titleTextStyle: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 18,
+        ),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: FormSummaryIdate(
+              idateType: result['idateType'],
+              questions: questions,
+              selectedAnswers: selectedAnswers,
+              score: result['score'] as int,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF123068),
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              onPressed: () => Navigator.pop(context),
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
+              label: const Text(
+                'Voltar',
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
+

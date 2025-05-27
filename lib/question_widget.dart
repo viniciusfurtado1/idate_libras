@@ -16,20 +16,18 @@ class QuestionWidget extends StatefulWidget {
   });
 
   @override
-  // ignore: library_private_types_in_public_api
   _QuestionWidgetState createState() => _QuestionWidgetState();
 }
 
 class _QuestionWidgetState extends State<QuestionWidget> {
   late FlickManager flickManager;
-  //bool _isInitialized = false;
 
   @override
   void initState() {
     super.initState();
     flickManager = FlickManager(
         videoPlayerController:
-            VideoPlayerController.asset(widget.question.videoAsset));
+        VideoPlayerController.asset(widget.question.videoAsset));
   }
 
   @override
@@ -40,84 +38,73 @@ class _QuestionWidgetState extends State<QuestionWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: const Color(0xFFF6F6F6),
-      child: Padding(
-        padding: const EdgeInsets.all(0.0),
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: SingleChildScrollView( // Adicionado para evitar overflow
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 16),
             Text(
-              textAlign: TextAlign.center,
               widget.question.questionText,
-              style:
-                  const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             Center(
               child: AspectRatio(
-                  aspectRatio: 16 / 9,
-                  child: FlickVideoPlayer(flickManager: flickManager)),
+                aspectRatio: 16 / 9,
+                child: FlickVideoPlayer(flickManager: flickManager),
+              ),
             ),
             const SizedBox(height: 32),
-            Center(
-              child: Wrap(
-                alignment: WrapAlignment.spaceAround,
-                spacing: 1,
-                children:
-                    List<Widget>.generate(widget.question.options.length, (i) {
-                  return Column(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primary,
-                          border: Border.all(color: Colors.black, width: 1.0),
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              '${i + 1}',
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                            Text(
-                              widget.question.options[i],
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Transform.scale(
-                        scale: 1.5,
-                        child: Radio<int>(
+
+            // Substituindo Expanded + ListView por Column com ...map()
+            Column(
+              children: widget.question.options
+                  .asMap()
+                  .entries
+                  .map((entry) {
+                int i = entry.key;
+                String option = entry.value;
+                return GestureDetector(
+                  onTap: () => widget.onOptionSelected(i),
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(vertical: 8.0),
+                    decoration: BoxDecoration(
+                      color: widget.selectedAnswer == i
+                          ? Colors.blue.shade100
+                          : Colors.white,
+                      border: Border.all(color: Colors.black, width: 1.0),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Row(
+                      children: [
+                        Radio<int>(
                           value: i,
                           groupValue: widget.selectedAnswer,
                           onChanged: widget.onOptionSelected,
-                          materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
                         ),
-                      ),
-                    ],
-                  );
-                }),
-              ),
+                        Flexible(
+                          child: Text(
+                            '${i + 1}. $option',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }).toList(),
             ),
           ],
         ),
       ),
     );
   }
+
+
 }

@@ -214,7 +214,7 @@ class _QuestionPageIdateT extends State<QuestionPageIdateE> {
           'IDATE-E/Libras',
           style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white),
         ),
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: const Color(0xFF123068),
       ),
       body: PageView.builder(
         physics: const NeverScrollableScrollPhysics(),
@@ -247,8 +247,8 @@ class _QuestionPageIdateT extends State<QuestionPageIdateE> {
               onPressed: _isNextButtonEnabled() ? _nextPage : null,
               shape: const CircleBorder(),
               backgroundColor: _isNextButtonEnabled()
-                  ? Theme.of(context).colorScheme.primary
-                  : Theme.of(context).colorScheme.inversePrimary,
+                  ? const Color(0xFF123068) // Cor ajustada
+                  : Colors.grey,
               child: const Icon(
                 Icons.arrow_forward,
                 color: Colors.white,

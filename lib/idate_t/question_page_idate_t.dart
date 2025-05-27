@@ -129,7 +129,7 @@ class _QuestionPageIdateT extends State<QuestionPageIdateT> {
         videoAsset: 'assets/videos/idatet/T-19.mp4',
         options: options,
         weights: reverseWeights),
-  Question(
+    Question(
         questionText: '20. PERTUBADO PENSAR PROBLEMAS AGORA',
         videoAsset: 'assets/videos/idatet/T-20.mp4',
         options: options,
@@ -208,13 +208,13 @@ class _QuestionPageIdateT extends State<QuestionPageIdateT> {
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(
-          color: Colors.white, // Defina a cor desejada aqui
+          color: Colors.white,
         ),
         title: const Text(
           'IDATE-T/Libras',
           style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white),
         ),
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: const Color(0xFF123068), // Cor do AppBar
       ),
       body: PageView.builder(
         physics: const NeverScrollableScrollPhysics(),
@@ -237,23 +237,24 @@ class _QuestionPageIdateT extends State<QuestionPageIdateT> {
       ),
       floatingActionButton: _isLastQuestion()
           ? FloatingActionButton(
-              onPressed: _isNextButtonEnabled() ? _goToHomePage : null,
-              shape: const CircleBorder(),
-              backgroundColor:
-                  _isNextButtonEnabled() ? Colors.green : Colors.green.shade300,
-              child: const Icon(Icons.check, size: 32.0),
-            )
+        onPressed: _isNextButtonEnabled() ? _goToHomePage : null,
+        shape: const CircleBorder(),
+        backgroundColor:
+        _isNextButtonEnabled() ? Colors.green : Colors.green.shade300,
+        child: const Icon(Icons.check, size: 32.0),
+
+      )
           : FloatingActionButton(
-              onPressed: _isNextButtonEnabled() ? _nextPage : null,
-              shape: const CircleBorder(),
-              backgroundColor: _isNextButtonEnabled()
-                  ? Theme.of(context).colorScheme.primary
-                  : Theme.of(context).colorScheme.inversePrimary,
-              child: const Icon(
-                Icons.arrow_forward,
-                color: Colors.white,
-              ),
-            ),
+        onPressed: _isNextButtonEnabled() ? _nextPage : null,
+        shape: const CircleBorder(),
+        backgroundColor: _isNextButtonEnabled()
+            ? const Color(0xFF123068) // Cor ajustada
+            : Colors.grey,
+        child: const Icon(
+          Icons.arrow_forward,
+          color: Colors.white,
+        ),
+      ),
     );
   }
 }

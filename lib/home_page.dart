@@ -17,7 +17,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: const Color(0xFF123068),
         title: const Text(
           "IDATE/Libras",
           style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white),
@@ -37,7 +37,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Container(
-          color: const Color(0xFFF6F6F6),
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -67,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     const Text(
                       'IDATE-T',
                       style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -89,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     const Text(
                       'IDATE-E',
                       style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -106,10 +105,10 @@ class _MyHomePageState extends State<MyHomePage> {
           } else if (_character == SingingCharacter.idatee) {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const IdateEInstrucoes()));
-          } 
+          }
         },
         shape: const CircleBorder(),
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: const Color(0xFF123068),
         child: const Icon(
           Icons.arrow_forward,
           color: Colors.white,
