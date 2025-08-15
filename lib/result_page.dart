@@ -13,6 +13,42 @@ class ResultsPage extends StatefulWidget {
 }
 
 class _ResultsPageState extends State<ResultsPage> {
+  String classificarPontuacaoIDATE(int score) {
+    if (score >= 20 && score <= 40) {
+      return "Baixo nível de ansiedade";
+    } else if (score >= 41 && score <= 60) {
+      return "Médio nível de ansiedade";
+    } else if (score >= 61 && score <= 80) {
+      return "Alto nível de ansiedade";
+    } else {
+      return "Pontuação inválida";
+    }
+  }
+
+  Color corDaClassificacao(String classificacao) {
+    switch (classificacao) {
+      case "Baixo nível de ansiedade":
+        return const Color(0xFF2E7D32); // verde
+      case "Médio nível de ansiedade":
+        return const Color(0xFFF9A825); // amarelo
+      case "Alto nível de ansiedade":
+        return const Color(0xFFC62828); // vermelho
+      default:
+        return const Color(0xFF616161); // cinza para inválido
+    }
+  }
+
+  /// Um chip pronto pra usar onde quiser
+  Widget buildClassificacaoChip(String classificacao) {
+    return Chip(
+      label: Text(
+        classificacao,
+        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      ),
+      backgroundColor: corDaClassificacao(classificacao),
+    );
+  }
+
   Future<List<Map<String, dynamic>>> _loadResults() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String>? savedResults = prefs.getStringList('idate_results');
@@ -142,19 +178,20 @@ class _ResultsPageState extends State<ResultsPage> {
                     itemCount: results.length,
                     itemBuilder: (context, index) {
                       var result = results[index];
+                      final int score = (result['score'] as num).toInt();
+                      final String classificacao = classificarPontuacaoIDATE(score);
+
                       var date = DateTime.parse(result['date']);
                       String twoDigitsMinutes =
                       date.minute.toString().padLeft(2, '0');
                       var formattedDate =
                           '${date.day}/${date.month}/${date.year} às ${date.hour}:$twoDigitsMinutes';
+
                       return Container(
                         margin: const EdgeInsets.all(8.0),
                         decoration: BoxDecoration(
                           color: Colors.white.withOpacity(0.5),
-                          border: Border.all(
-                            color: Colors.black,
-                            width: 1.0,
-                          ),
+                          border: Border.all(color: Colors.black, width: 1.0),
                           borderRadius: BorderRadius.circular(25.0),
                           boxShadow: [
                             BoxShadow(
@@ -170,8 +207,7 @@ class _ResultsPageState extends State<ResultsPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    ResultDetailPage(result: result),
+                                builder: (context) => ResultDetailPage(result: result),
                               ),
                             );
                           },
@@ -179,21 +215,17 @@ class _ResultsPageState extends State<ResultsPage> {
                           child: ListTile(
                             title: Text(
                               'Resultado do IDATE-${result['idateType']} em $formattedDate',
-                              style: const TextStyle(
-                                fontSize: 16, // Fonte reduzida
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                             ),
                             subtitle: Text(
-                              'Score: ${result['score']}',
-                              style: const TextStyle(
-                                fontSize: 14, // Fonte reduzida
-                                fontWeight: FontWeight.bold,
-                              ),
+                              'Score: $score • $classificacao',
+                              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                             ),
+                            trailing: buildClassificacaoChip(classificacao),
                           ),
                         ),
                       );
+
                     },
                   ),
                 ),
